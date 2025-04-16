@@ -4,18 +4,12 @@
 hide empty description
 
 state idle
-state selected
 state dragging
-state released
 
 [*] -> idle
 
-idle --> selected : left mouse pressed in area
+idle --> dragging : left mouse pressed in area
 
-selected --> dragging : mouse moving
-
-dragging --> selected : mouse stop moving
-
-selected --> idle : left mouse released
+dragging --> idle : left mouse released
 
 @enduml

@@ -7,4 +7,8 @@
   <ItemGroup>
     <Content Include="**/*.puml"/>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
+    <PackageReference Include="GTweensGodot" Version="6.0.0" />
+  </ItemGroup>
 </Project>
