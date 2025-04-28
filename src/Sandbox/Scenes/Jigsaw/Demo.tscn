@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://3jwivmb2wl2q"]
+
+[ext_resource type="PackedScene" uid="uid://bnk76rix25yw0" path="res://Scenes/Jigsaw/JigsawTile.tscn" id="1_t44e1"]
+
+[node name="Demo" type="Node2D"]
+
+[node name="JigsawTile" parent="." instance=ExtResource("1_t44e1")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(50, 0)
+zoom = Vector2(10, 10)

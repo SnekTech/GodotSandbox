@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://hh5ku7t8knnf"]
+
+[ext_resource type="Script" uid="uid://c3soctrmu571a" path="res://Scripts/Jigsaw/TemplateBezierCurve.cs" id="1_87g05"]
+[ext_resource type="PackedScene" uid="uid://dv174kkp4mq8r" path="res://Scenes/Jigsaw/ControlPoint.tscn" id="2_y7bc5"]
+
+[node name="TemplateBezierCurve" type="Node2D"]
+script = ExtResource("1_87g05")
+controlPointScene = ExtResource("2_y7bc5")
+
+[node name="controlPointLines" type="Line2D" parent="."]
+unique_name_in_owner = true
+width = 1.0
+default_color = Color(0.203922, 0.8, 0.921569, 1)
+
+[node name="curve" type="Line2D" parent="controlPointLines"]
+unique_name_in_owner = true
+width = 1.0
+
+[node name="ControlPointContainer" type="Node2D" parent="."]
+unique_name_in_owner = true

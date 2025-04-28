@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sandbox"
-run/main_scene="uid://cthdjac2mwcch"
+run/main_scene="uid://3jwivmb2wl2q"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
