@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv174kkp4mq8r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uok3h"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h26a7"]
+size = Vector2(20, 20)
+
+[node name="ControlPoint" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_uok3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_h26a7")

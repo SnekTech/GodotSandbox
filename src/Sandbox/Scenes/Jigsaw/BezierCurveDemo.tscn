@@ -1,3 +1,28 @@
-[gd_scene format=3 uid="uid://cthdjac2mwcch"]
+[gd_scene load_steps=3 format=3 uid="uid://cthdjac2mwcch"]
+
+[ext_resource type="Script" uid="uid://cynwgi8aopiyv" path="res://Scripts/Jigsaw/BezierCurveDemo.cs" id="1_84ekh"]
+[ext_resource type="PackedScene" uid="uid://dv174kkp4mq8r" path="res://Scenes/Jigsaw/ControlPoint.tscn" id="2_5o14p"]
 
 [node name="BezierCurveDemo" type="Node"]
+script = ExtResource("1_84ekh")
+
+[node name="controlPointLines" type="Line2D" parent="."]
+unique_name_in_owner = true
+width = 1.0
+default_color = Color(0.203922, 0.8, 0.921569, 1)
+
+[node name="curve" type="Line2D" parent="controlPointLines"]
+unique_name_in_owner = true
+width = 1.0
+
+[node name="ControlPointContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ControlPoint" parent="ControlPointContainer" instance=ExtResource("2_5o14p")]
+position = Vector2(562, 590)
+
+[node name="ControlPoint2" parent="ControlPointContainer" instance=ExtResource("2_5o14p")]
+position = Vector2(906, 227)
+
+[node name="ControlPoint3" parent="ControlPointContainer" instance=ExtResource("2_5o14p")]
+position = Vector2(1187, 489)
