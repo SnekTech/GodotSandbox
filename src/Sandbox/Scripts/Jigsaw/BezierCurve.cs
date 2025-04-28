@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-namespace Sandbox;
+namespace Sandbox.Jigsaw;
 
 public static class BezierCurve
 {

@@ -5,6 +5,7 @@
 
 [node name="BezierCurveDemo" type="Node"]
 script = ExtResource("1_84ekh")
+controlPointScene = ExtResource("2_5o14p")
 
 [node name="controlPointLines" type="Line2D" parent="."]
 unique_name_in_owner = true
