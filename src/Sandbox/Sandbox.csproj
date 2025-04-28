@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="**/*.puml"/>
+    <Content Include="diagrams\.gdignore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
