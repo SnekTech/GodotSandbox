@@ -7,5 +7,5 @@
 [node name="JigsawTile" parent="." instance=ExtResource("1_t44e1")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(50, 0)
-zoom = Vector2(10, 10)
+position = Vector2(72, 63)
+zoom = Vector2(6, 6)

@@ -20,7 +20,7 @@ public partial class TemplateBezierCurve : Node2D
     [Node]
     private Node2D controlPointContainer = null!;
 
-    private static readonly List<Vector2> TemplateControlPoints =
+    public static readonly List<Vector2> TemplateControlPoints =
     [
         new(0, 0),
         new(35, 15),

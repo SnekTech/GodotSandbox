@@ -1,7 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnk76rix25yw0"]
+[gd_scene load_steps=4 format=3 uid="uid://bnk76rix25yw0"]
 
 [ext_resource type="PackedScene" uid="uid://hh5ku7t8knnf" path="res://Scenes/Jigsaw/TemplateBezierCurve.tscn" id="1_cl03r"]
+[ext_resource type="Script" uid="uid://bbhuddkf30x4x" path="res://Scripts/Jigsaw/JigsawTile.cs" id="1_k60x2"]
+[ext_resource type="Texture2D" uid="uid://b8ckltrk1rw8h" path="res://Art/assets_to_dowmload/sunflower_140.jpg" id="2_ui6sr"]
 
 [node name="JigsawTile" type="Node2D"]
+script = ExtResource("1_k60x2")
 
 [node name="TemplateBezierCurve" parent="." instance=ExtResource("1_cl03r")]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ui6sr")
+centered = false
+
+[node name="curveLineContainer" type="Node2D" parent="."]
