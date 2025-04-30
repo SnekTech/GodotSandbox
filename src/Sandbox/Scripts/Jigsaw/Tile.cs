@@ -5,37 +5,59 @@ namespace Sandbox.Jigsaw;
 
 public class Tile
 {
-    public Vector2I Offset { get; set; } = new(20, 20);
-    public Vector2 Size { get; set; } = new(100, 100);
+    public const int CurveCount = 4;
 
-    public List<TileCurve> Curves =
-    [
-        new(TileCurve.Direction.Up, TileCurve.Shape.Positive),
-        new(TileCurve.Direction.Right, TileCurve.Shape.Negative),
-        new(TileCurve.Direction.Down, TileCurve.Shape.None),
-        new(TileCurve.Direction.Left, TileCurve.Shape.Positive),
-        
-    ];
-
-    public List<Line2D> DrawCurves(Color color, float width = 1f)
+    public Tile(List<Line2D> lines)
     {
-        var curveLines = new List<Line2D>();
-        foreach (var curve in Curves)
-        {
-            var line = new Line2D();
-            line.DefaultColor = color;
-            line.Width = width;
-            line.Points = curve.GetPoints(Offset, Size).ToArray();
-            curveLines.Add(line);
-        }
+        var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up, Line2D = lines[0] };
+        var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right, Line2D = lines[1] };
+        var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down, Line2D = lines[2] };
+        var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left, Line2D = lines[3] };
+        _curves = [curveUp, curveRight, curveDown, curveLeft];
+    }
 
-        return curveLines;
+    public Vector2I Offset { get; set; } = new(20, 20);
+    public Vector2I Size { get; set; } = new(100, 100);
+
+    private readonly List<TileCurve> _curves;
+
+    public void DrawCurves()
+    {
+        foreach (var tileCurve in _curves)
+        {
+            tileCurve.Draw(Offset, Size);
+        }
+    }
+
+    public void RandomizeCurveShapes()
+    {
+        foreach (var tileCurve in _curves)
+        {
+            tileCurve.Shape = GetRandomCurveShape();
+        }
+    }
+
+    private TileCurve.CurveShape GetRandomCurveShape()
+    {
+        var rand = GD.Randf();
+        return rand > 0.5 ? TileCurve.CurveShape.Positive : TileCurve.CurveShape.Negative;
     }
 }
 
-public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
+public class TileCurve
 {
+    public CurveDirection Direction { get; set; }
+    public CurveShape Shape { get; set; }
+    public required Line2D Line2D { get; init; }
+
     public static readonly List<Vector2> BezCurve = BezierCurve.PointList2(TemplateBezierCurve.TemplateControlPoints);
+
+    private static readonly Dictionary<CurveShape, Color> DefaultColors = new()
+    {
+        [CurveShape.Positive] = Colors.Red,
+        [CurveShape.Negative] = Colors.Blue,
+        [CurveShape.None] = Colors.White
+    };
 
     private static void TranslatePoints(List<Vector2> points, Vector2 offset)
     {
@@ -63,25 +85,25 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         }
     }
 
-    public List<Vector2> GetPoints(Vector2 offset, Vector2 tileSize)
+    private List<Vector2> GetPoints(Vector2I offset, Vector2I tileSize)
     {
         var (paddingX, paddingY) = offset;
         var (width, height) = tileSize;
 
         var points = new List<Vector2>(BezCurve);
 
-        switch (direction)
+        switch (Direction)
         {
-            case Direction.Up:
+            case CurveDirection.Up:
                 HandleUp();
                 break;
-            case Direction.Right:
+            case CurveDirection.Right:
                 HandleRight();
                 break;
-            case Direction.Down:
+            case CurveDirection.Down:
                 HandleDown();
                 break;
-            case Direction.Left:
+            case CurveDirection.Left:
                 HandleLeft();
                 break;
         }
@@ -91,11 +113,11 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         void HandleUp()
         {
             var (startX, startY) = (paddingX, paddingY);
-            if (shape == Shape.Positive)
+            if (Shape == CurveShape.Positive)
             {
                 TranslatePoints(points, new Vector2(startX, startY));
             }
-            else if (shape == Shape.Negative)
+            else if (Shape == CurveShape.Negative)
             {
                 InvertY(points);
                 TranslatePoints(points, new Vector2(startX, startY));
@@ -113,13 +135,13 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         void HandleRight()
         {
             var (startX, startY) = (paddingX + width, paddingY);
-            if (shape == Shape.Positive)
+            if (Shape == CurveShape.Positive)
             {
                 InvertY(points);
                 SwapXY(points);
                 TranslatePoints(points, new Vector2(startX, startY));
             }
-            else if (shape == Shape.Negative)
+            else if (Shape == CurveShape.Negative)
             {
                 SwapXY(points);
                 TranslatePoints(points, new Vector2(startX, startY));
@@ -137,12 +159,12 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         void HandleDown()
         {
             var (startX, startY) = (paddingX, paddingY + height);
-            if (shape == Shape.Positive)
+            if (Shape == CurveShape.Positive)
             {
                 InvertY(points);
                 TranslatePoints(points, new Vector2(startX, startY));
             }
-            else if (shape == Shape.Negative)
+            else if (Shape == CurveShape.Negative)
             {
                 TranslatePoints(points, new Vector2(startX, startY));
             }
@@ -159,12 +181,12 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         void HandleLeft()
         {
             var (startX, startY) = (paddingX, paddingY);
-            if (shape == Shape.Positive)
+            if (Shape == CurveShape.Positive)
             {
                 SwapXY(points);
                 TranslatePoints(points, new Vector2(startX, startY));
             }
-            else if (shape == Shape.Negative)
+            else if (Shape == CurveShape.Negative)
             {
                 InvertY(points);
                 SwapXY(points);
@@ -181,7 +203,15 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         }
     }
 
-    public enum Direction
+    public void Draw(Vector2I offset, Vector2I tileSize, float width = 1f)
+    {
+        Line2D.ClearPoints();
+        Line2D.DefaultColor = DefaultColors[Shape];
+        Line2D.Width = width;
+        Line2D.Points = GetPoints(offset, tileSize).ToArray();
+    }
+
+    public enum CurveDirection
     {
         Up,
         Right,
@@ -189,7 +219,7 @@ public class TileCurve(TileCurve.Direction direction, TileCurve.Shape shape)
         Left
     }
 
-    public enum Shape
+    public enum CurveShape
     {
         Positive,
         Negative,
