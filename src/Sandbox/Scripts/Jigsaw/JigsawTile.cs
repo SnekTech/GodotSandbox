@@ -34,4 +34,16 @@ public partial class JigsawTile : Node2D
         _tile.RandomizeCurveShapes();
         _tile.DrawCurves();
     }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event is InputEventKey inputEventKey)
+        {
+            if (inputEventKey.Keycode == Key.F)
+            {
+                _tile.RandomizeCurveShapes();
+                _tile.DrawCurves();
+            }
+        }
+    }
 }
