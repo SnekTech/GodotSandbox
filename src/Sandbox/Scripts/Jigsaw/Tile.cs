@@ -7,18 +7,22 @@ public class Tile
 {
     public const int CurveCount = 4;
 
-    public Tile(List<Line2D> lines)
+    public Tile(List<Line2D> lines, Image tileImage)
     {
         var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up, Line2D = lines[0] };
         var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right, Line2D = lines[1] };
         var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down, Line2D = lines[2] };
         var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left, Line2D = lines[3] };
         _curves = [curveUp, curveRight, curveDown, curveLeft];
+
+        _image.CopyFrom(tileImage);
+        _image.Convert(Image.Format.Rgba8);
     }
 
     public Vector2I Offset { get; set; } = new(20, 20);
     public Vector2I Size { get; set; } = new(100, 100);
 
+    private readonly Image _image = new();
     private readonly List<TileCurve> _curves;
 
     public void DrawCurves()
@@ -35,6 +39,16 @@ public class Tile
         {
             tileCurve.Shape = GetRandomCurveShape();
         }
+    }
+
+    public Texture2D GetJigsawTexture()
+    {
+        _image.Fill(Colors.Transparent);
+        
+        var imageTexture = new ImageTexture();
+        imageTexture.SetImage(_image);
+        
+        return imageTexture;
     }
 
     private TileCurve.CurveShape GetRandomCurveShape()
