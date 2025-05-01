@@ -9,7 +9,7 @@ public class TileCurve
     public CurveShape Shape { get; set; }
     public required Line2D Line2D { get; init; }
 
-    public static readonly List<Vector2> BezCurve = BezierCurve.PointList2(TemplateBezierCurve.TemplateControlPoints);
+    public static readonly List<Vector2> BezCurve = BezierCurve.PointList2(TemplateBezierCurve.TemplateControlPoints, 0.001f);
 
     private static readonly Dictionary<CurveShape, Color> DefaultColors = new()
     {
@@ -44,7 +44,7 @@ public class TileCurve
         }
     }
 
-    private List<Vector2> GetPoints(Vector2I offset, Vector2I tileSize)
+    public List<Vector2> GetPoints(Vector2I offset, Vector2I tileSize)
     {
         var (paddingX, paddingY) = offset;
         var (width, height) = tileSize;
