@@ -9,7 +9,10 @@ public partial class JigsawBoard : Node2D
     private const string BackgroundImagePath = "res://Art/assets_to_dowmload/flower_12_8.jpg";
 
     [Node]
-    private Sprite2D boardSprite = null!;
+    private Sprite2D board = null!;
+
+    [Node]
+    private Sprite2D border = null!;
 
     public override void _Notification(int what)
     {
@@ -21,40 +24,30 @@ public partial class JigsawBoard : Node2D
 
     public override void _Ready()
     {
-        var texture = LoadBoardImageWithBorder(BackgroundImagePath, Vector2I.One * 10);
-        boardSprite.Texture = texture;
+        var boardImage = GD.Load<Image>(BackgroundImagePath);
+        InitBorderBackground(boardImage, Vector2I.One * 10, Colors.White);
+        LoadBoardTexture(boardImage);
     }
 
-
-    private Texture2D LoadBoardImageWithBorder(string imagePath, Vector2I borderSize)
+    private void LoadBoardTexture(Image boardImage)
     {
-        var originalImage = GD.Load<Image>(imagePath);
-        var paddedImage = GetImageWithBorder(originalImage, borderSize);
-
-        var tex = new ImageTexture();
-        tex.SetImage(paddedImage);
-        return tex;
+        var boardTexture = new ImageTexture();
+        boardTexture.SetImage(boardImage);
+        board.Texture = boardTexture;
     }
 
-    private Image GetImageWithBorder(Image contentImage, Vector2I borderSize)
+    private void InitBorderBackground(Image contentImage, Vector2I size, Color color)
     {
-        var (borderX, borderY) = borderSize;
-        var (width, height) = contentImage.GetSize();
-        var paddedWidth = width + borderX * 2;
-        var paddedHeight = height + borderY * 2;
-        var paddedImage = Image.CreateEmpty(paddedWidth, paddedHeight, false, Image.Format.Rgba8);
+        var (contentWidth, contentHeight) = contentImage.GetSize();
+        var (borderWidth, borderHeight) = size;
+        var backgroundBorderImage =
+            Image.CreateEmpty(contentWidth + borderWidth * 2, contentHeight + borderHeight * 2, false,
+                Image.Format.Rgba8);
+        backgroundBorderImage.Fill(color);
 
-        paddedImage.Fill(Colors.White);
-
-        for (var x = 0; x < width; x++)
-        {
-            for (var y = 0; y < height; y++)
-            {
-                var color = contentImage.GetPixel(x, y);
-                paddedImage.SetPixel(x + borderX, y + borderY, color);
-            }
-        }
-
-        return paddedImage;
+        var backgroundBorderTexture = new ImageTexture();
+        backgroundBorderTexture.SetImage(backgroundBorderImage);
+        border.Texture = backgroundBorderTexture;
+        border.Offset = new Vector2(-borderWidth, -borderHeight);
     }
 }
