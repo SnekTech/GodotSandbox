@@ -9,6 +9,7 @@ script = ExtResource("1_k60x2")
 [node name="TemplateBezierCurve" parent="." instance=ExtResource("1_cl03r")]
 visible = false
 
-[node name="spriteContainer" type="Node2D" parent="."]
+[node name="tileSprite" type="Sprite2D" parent="."]
+centered = false
 
 [node name="curveLineContainer" type="Node2D" parent="."]

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Sandbox.Jigsaw;
@@ -7,12 +8,12 @@ public class Tile
 {
     public const int CurveCount = 4;
 
-    public Tile(List<Line2D> lines, Image tileImage)
+    public Tile(Image tileImage)
     {
-        var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up, Line2D = lines[0] };
-        var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right, Line2D = lines[1] };
-        var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down, Line2D = lines[2] };
-        var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left, Line2D = lines[3] };
+        var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up };
+        var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right };
+        var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down };
+        var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left };
         _curves = [curveUp, curveRight, curveDown, curveLeft];
 
         _originalImage.CopyFrom(tileImage);
@@ -28,11 +29,16 @@ public class Tile
     private readonly Image _image = new();
     private readonly List<TileCurve> _curves;
 
-    public void DrawCurves()
+    public void DrawCurves(List<Line2D> lines)
     {
-        foreach (var tileCurve in _curves)
+        if (lines.Count != CurveCount)
+            throw new ArgumentException(
+                $"lines should have exact {CurveCount} lines, buw now we have {lines.Count} lines");
+
+        for (var i = 0; i < lines.Count; i++)
         {
-            tileCurve.Draw(Offset, Size);
+            var curve = _curves[i];
+            curve.Draw(lines[i], Offset, Size);
         }
     }
 

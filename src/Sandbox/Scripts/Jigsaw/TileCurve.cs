@@ -7,7 +7,6 @@ public class TileCurve
 {
     public CurveDirection Direction { get; set; }
     public CurveShape Shape { get; set; }
-    public required Line2D Line2D { get; init; }
 
     public static readonly List<Vector2> BezCurve = BezierCurve.PointList2(TemplateBezierCurve.TemplateControlPoints, 0.001f);
 
@@ -162,12 +161,12 @@ public class TileCurve
         }
     }
 
-    public void Draw(Vector2I offset, Vector2I tileSize, float width = 1f)
+    public void Draw(Line2D line2D, Vector2I offset, Vector2I tileSize, float width = 1f)
     {
-        Line2D.ClearPoints();
-        Line2D.DefaultColor = DefaultColors[Shape];
-        Line2D.Width = width;
-        Line2D.Points = GetPoints(offset, tileSize).ToArray();
+        line2D.ClearPoints();
+        line2D.DefaultColor = DefaultColors[Shape];
+        line2D.Width = width;
+        line2D.Points = GetPoints(offset, tileSize).ToArray();
     }
 
     public enum CurveDirection
