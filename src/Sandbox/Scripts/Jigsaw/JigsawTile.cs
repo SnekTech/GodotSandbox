@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using GodotUtilities;
 
@@ -7,8 +8,6 @@ namespace Sandbox.Jigsaw;
 [Scene]
 public partial class JigsawTile : Node2D
 {
-    private const string SunflowerPath = "res://Art/assets_to_dowmload/sunflower_140.jpg";
-
     [Node]
     private Node2D curveLineContainer = null!;
 
@@ -17,7 +16,7 @@ public partial class JigsawTile : Node2D
 
     private Tile _tile = null!;
 
-    private readonly List<Line2D> _lines = [];
+    private List<Line2D> Lines => curveLineContainer.GetChildren<Line2D>().ToList();
 
     public override void _Notification(int what)
     {
@@ -27,41 +26,16 @@ public partial class JigsawTile : Node2D
         }
     }
 
-    public override void _Ready()
+    public void Init(Tile tile)
     {
-        InitTile();
-    }
-
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        if (@event is InputEventKey inputEventKey)
-        {
-            if (inputEventKey.Keycode == Key.F)
-            {
-                _tile.RandomizeCurveShapes();
-                UpdateTileSprite();
-            }
-        }
-    }
-
-    private void InitTile()
-    {
-        for (var i = 0; i < Tile.CurveCount; i++)
-        {
-            var curveLine = new Line2D();
-            _lines.Add(curveLine);
-            curveLineContainer.AddChild(curveLine);
-        }
-
-        var tileImage = GD.Load<Image>(SunflowerPath);
-        _tile = new Tile(tileImage);
-        _tile.RandomizeCurveShapes();
+        _tile = tile;
         UpdateTileSprite();
+        tile.RandomizeCurveShapes();
     }
 
     private void UpdateTileSprite()
     {
-        _tile.DrawCurves(_lines);
+        _tile.DrawCurves(Lines);
         var texture = _tile.GetJigsawTexture();
         tileSprite.Texture = texture;
     }

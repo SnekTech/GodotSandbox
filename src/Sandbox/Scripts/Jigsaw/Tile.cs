@@ -7,27 +7,31 @@ namespace Sandbox.Jigsaw;
 public class Tile
 {
     public const int CurveCount = 4;
+    public const int Size = 100;
 
-    public Tile(Image tileImage)
+    public Tile((int x, int y) coordinate, Image boardImage)
     {
+        Coordinate = coordinate;
         var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up };
         var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right };
         var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down };
         var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left };
         _curves = [curveUp, curveRight, curveDown, curveLeft];
 
-        _originalImage.CopyFrom(tileImage);
-        _originalImage.Convert(Image.Format.Rgba8);
-        _image.CopyFrom(tileImage);
-        _image.Convert(Image.Format.Rgba8);
+        var (boardImageWidth, boardImageHeight) = boardImage.GetSize();
+        _boardImage = Image.CreateEmpty(boardImageWidth, boardImageHeight, false, Image.Format.Rgba8);
+        _boardImage.CopyFrom(boardImage);
+        _boardImage.Convert(Image.Format.Rgba8);
+
+        _image = Image.CreateEmpty(Size, Size, false, Image.Format.Rgba8);
     }
 
-    public Vector2I Offset { get; set; } = new(20, 20);
-    public Vector2I Size { get; set; } = new(100, 100);
-
-    private readonly Image _originalImage = new();
-    private readonly Image _image = new();
+    private readonly Image _boardImage;
+    private readonly Image _image;
     private readonly List<TileCurve> _curves;
+
+    public (int x, int y) Coordinate { get; }
+    public Vector2I PositionInBoard => new(Coordinate.x * Size, Coordinate.y * Size);
 
     public void DrawCurves(List<Line2D> lines)
     {
@@ -38,7 +42,7 @@ public class Tile
         for (var i = 0; i < lines.Count; i++)
         {
             var curve = _curves[i];
-            curve.Draw(lines[i], Offset, Size);
+            curve.Draw(lines[i], Size);
         }
     }
 
@@ -55,7 +59,7 @@ public class Tile
         var points = new List<Vector2>();
         foreach (var tileCurve in _curves)
         {
-            points.AddRange(tileCurve.GetPoints(Offset, Size));
+            points.AddRange(tileCurve.GetPoints(Size));
         }
 
         return points;
@@ -74,7 +78,8 @@ public class Tile
 
     private void FillPixel(int x, int y)
     {
-        var color = _originalImage.GetPixel(x, y);
+        var (positionX, positionY) = PositionInBoard;
+        var color = _boardImage.GetPixel(positionX + x, positionY + y);
         _image.SetPixel(x, y, color);
     }
 
