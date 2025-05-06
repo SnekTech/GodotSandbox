@@ -9,14 +9,20 @@ public class Tile
     public const int CurveCount = 4;
     public const int Size = 100;
 
-    public Tile((int x, int y) coordinate, Image boardImage)
+    public Tile((int i, int j) coordinate, Image boardImage)
     {
         Coordinate = coordinate;
         var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up };
         var curveRight = new TileCurve { Direction = TileCurve.CurveDirection.Right };
         var curveDown = new TileCurve { Direction = TileCurve.CurveDirection.Down };
         var curveLeft = new TileCurve { Direction = TileCurve.CurveDirection.Left };
-        _curves = [curveUp, curveRight, curveDown, curveLeft];
+        _curvesByDirection = new Dictionary<TileCurve.CurveDirection, TileCurve>
+        {
+            [TileCurve.CurveDirection.Up] = curveUp,
+            [TileCurve.CurveDirection.Right] = curveRight,
+            [TileCurve.CurveDirection.Down] = curveDown,
+            [TileCurve.CurveDirection.Left] = curveLeft
+        };
 
         var (boardImageWidth, boardImageHeight) = boardImage.GetSize();
         _boardImage = Image.CreateEmpty(boardImageWidth, boardImageHeight, false, Image.Format.Rgba8);
@@ -28,10 +34,12 @@ public class Tile
 
     private readonly Image _boardImage;
     private readonly Image _image;
-    private readonly List<TileCurve> _curves;
+    private readonly Dictionary<TileCurve.CurveDirection, TileCurve> _curvesByDirection;
 
-    public (int x, int y) Coordinate { get; }
-    public Vector2I PositionInBoard => new(Coordinate.x * Size, Coordinate.y * Size);
+    private IEnumerable<TileCurve> Curves => _curvesByDirection.Values;
+
+    public (int i, int j) Coordinate { get; }
+    public Vector2I PositionInBoard => new(Coordinate.j * Size, Coordinate.i * Size);
 
     public void DrawCurves(List<Line2D> lines)
     {
@@ -39,16 +47,27 @@ public class Tile
             throw new ArgumentException(
                 $"lines should have exact {CurveCount} lines, buw now we have {lines.Count} lines");
 
-        for (var i = 0; i < lines.Count; i++)
+        var i = 0;
+        foreach (var tileCurve in Curves)
         {
-            var curve = _curves[i];
-            curve.Draw(lines[i], Size);
+            tileCurve.Draw(lines[i], Size);
+            i++;
         }
+    }
+
+    public void SetCurveShape(TileCurve.CurveDirection direction, TileCurve.CurveShape shape)
+    {
+        _curvesByDirection[direction].Shape = shape;
+    }
+
+    public TileCurve.CurveShape GetCurveShape(TileCurve.CurveDirection direction)
+    {
+        return _curvesByDirection[direction].Shape;
     }
 
     public void RandomizeCurveShapes()
     {
-        foreach (var tileCurve in _curves)
+        foreach (var tileCurve in Curves)
         {
             tileCurve.Shape = GetRandomCurveShape();
         }
@@ -57,7 +76,7 @@ public class Tile
     private List<Vector2> GetCurvePoints()
     {
         var points = new List<Vector2>();
-        foreach (var tileCurve in _curves)
+        foreach (var tileCurve in Curves)
         {
             points.AddRange(tileCurve.GetPoints(Size));
         }

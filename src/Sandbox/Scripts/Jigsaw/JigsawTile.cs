@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using GodotUtilities;
 
@@ -16,7 +15,7 @@ public partial class JigsawTile : Node2D
 
     private Tile _tile = null!;
 
-    private List<Line2D> Lines => curveLineContainer.GetChildren<Line2D>().ToList();
+    private readonly List<Line2D> _lines = [];
 
     public override void _Notification(int what)
     {
@@ -26,16 +25,25 @@ public partial class JigsawTile : Node2D
         }
     }
 
+    public override void _Ready()
+    {
+        foreach (var line in curveLineContainer.GetChildren<Line2D>())
+        {
+            _lines.Add(line);
+        }
+    }
+
     public void Init(Tile tile)
     {
         _tile = tile;
+        Position = tile.PositionInBoard;
         UpdateTileSprite();
-        tile.RandomizeCurveShapes();
+        GD.Print($"jigsaw tile initialized at {tile.Coordinate}");
     }
 
     private void UpdateTileSprite()
     {
-        _tile.DrawCurves(Lines);
+        _tile.DrawCurves(_lines);
         var texture = _tile.GetJigsawTexture();
         tileSprite.Texture = texture;
     }

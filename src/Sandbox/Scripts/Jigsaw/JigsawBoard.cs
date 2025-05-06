@@ -22,7 +22,7 @@ public partial class JigsawBoard : Node2D
     [Node]
     private Sprite2D border = null!;
 
-    private Tile[,] _tiles = null!;
+    private Tile[,]? _tiles;
 
     public override void _Notification(int what)
     {
@@ -52,20 +52,106 @@ public partial class JigsawBoard : Node2D
 
         var tileRowCount = boardHeight / Tile.Size;
         var tileColumnCount = boardWidth / Tile.Size;
-        GD.Print($"{tileRowCount}, {tileColumnCount}");
         _tiles = new Tile[tileRowCount, tileColumnCount];
-        for (var x = 0; x < tileColumnCount; x++)
-        {
-            for (var y = 0; y < tileRowCount; y++)
-            {
-                var tile = new Tile((x, y), boardImage);
-                GD.Print($"[{x}, {y}]");
-                _tiles[y, x] = tile;
 
+        for (var i = 0; i < tileRowCount; i++)
+        {
+            for (var j = 0; j < tileColumnCount; j++)
+            {
+                var tile = new Tile((i, j), boardImage);
+                _tiles[i, j] = tile;
+            }
+        }
+
+        RandomizeTileShape(_tiles);
+
+        for (var i = 0; i < tileRowCount; i++)
+        {
+            for (var j = 0; j < tileColumnCount; j++)
+            {
                 var jigsawTile = jigsawTileScene.Instantiate<JigsawTile>();
                 tilesContainer.AddChild(jigsawTile);
-                jigsawTile.Init(tile);
-                jigsawTile.Position = tile.PositionInBoard;
+                jigsawTile.Init(_tiles[i, j]);
+            }
+        }
+
+        return;
+
+        void RandomizeTileShape(Tile[,] tiles)
+        {
+            var rowCount = tiles.GetLength(0);
+            var columnCount = tiles.GetLength(1);
+            GD.Print($"rows: {rowCount}, columns: {columnCount}");
+
+            // randomize the starting tile
+            var topLeftTile = tiles[0, 0];
+            topLeftTile.RandomizeCurveShapes();
+
+            // randomize top row
+            for (var j = 1; j < columnCount; j++)
+            {
+                var currentTile = tiles[0, j];
+                var leftTile = tiles[0, j - 1];
+                currentTile.RandomizeCurveShapes();
+
+                var leftTileRightShape = leftTile.GetCurveShape(TileCurve.CurveDirection.Right);
+                var currentLeftShape = leftTileRightShape == TileCurve.CurveShape.Positive
+                    ? TileCurve.CurveShape.Negative
+                    : TileCurve.CurveShape.Positive;
+                currentTile.SetCurveShape(TileCurve.CurveDirection.Left, currentLeftShape);
+            }
+
+            // randomize left column
+            for (var i = 1; i < rowCount; i++)
+            {
+                var currentTile = tiles[i, 0];
+                var upTile = tiles[i - 1, 0];
+                currentTile.RandomizeCurveShapes();
+
+                var upTileDownShape = upTile.GetCurveShape(TileCurve.CurveDirection.Down);
+                var currentUpShape = upTileDownShape == TileCurve.CurveShape.Positive
+                    ? TileCurve.CurveShape.Negative
+                    : TileCurve.CurveShape.Positive;
+                currentTile.SetCurveShape(TileCurve.CurveDirection.Up, currentUpShape);
+            }
+
+            // randomize the rest
+            for (var i = 1; i < rowCount; i++)
+            {
+                for (var j = 1; j < columnCount; j++)
+                {
+                    var currentTile = tiles[i, j];
+                    var leftTile = tiles[i, j - 1];
+                    var upTile = tiles[i - 1, j];
+                    currentTile.RandomizeCurveShapes();
+
+                    var leftTileRightShape = leftTile.GetCurveShape(TileCurve.CurveDirection.Right);
+                    var currentLeftShape = leftTileRightShape == TileCurve.CurveShape.Positive
+                        ? TileCurve.CurveShape.Negative
+                        : TileCurve.CurveShape.Positive;
+                    currentTile.SetCurveShape(TileCurve.CurveDirection.Left, currentLeftShape);
+
+                    var upTileDownShape = upTile.GetCurveShape(TileCurve.CurveDirection.Down);
+                    var currentUpShape = upTileDownShape == TileCurve.CurveShape.Positive
+                        ? TileCurve.CurveShape.Negative
+                        : TileCurve.CurveShape.Positive;
+                    currentTile.SetCurveShape(TileCurve.CurveDirection.Up, currentUpShape);
+                }
+            }
+
+            // finally, reset tile curves on 4 sides to straight
+            // top & bottom row
+            for (var j = 0; j < columnCount; j++)
+            {
+                tiles[0, j].SetCurveShape(TileCurve.CurveDirection.Up, TileCurve.CurveShape.None);
+                tiles[rowCount - 1, j].SetCurveShape(TileCurve.CurveDirection.Down, TileCurve.CurveShape.None);
+            }
+
+            // left & right column
+            for (var i = 0; i < rowCount; i++)
+            {
+                tiles[i, 0].SetCurveShape(TileCurve.CurveDirection.Left, TileCurve.CurveShape.None);
+                tiles[i, columnCount - 1].SetCurveShape(TileCurve.CurveDirection.Right, TileCurve.CurveShape.None);
             }
         }
     }
