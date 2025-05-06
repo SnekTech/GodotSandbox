@@ -38,7 +38,6 @@ public partial class JigsawTile : Node2D
         _tile = tile;
         Position = tile.PositionInBoard;
         UpdateTileSprite();
-        GD.Print($"jigsaw tile initialized at {tile.Coordinate}");
     }
 
     private void UpdateTileSprite()

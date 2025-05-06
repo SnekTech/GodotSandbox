@@ -81,7 +81,6 @@ public partial class JigsawBoard : Node2D
         {
             var rowCount = tiles.GetLength(0);
             var columnCount = tiles.GetLength(1);
-            GD.Print($"rows: {rowCount}, columns: {columnCount}");
 
             // randomize the starting tile
             var topLeftTile = tiles[0, 0];
