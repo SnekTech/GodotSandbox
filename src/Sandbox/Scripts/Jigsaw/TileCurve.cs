@@ -43,9 +43,9 @@ public class TileCurve
         }
     }
 
-    public List<Vector2> GetPoints(int tileSize)
+    public List<Vector2> GetPoints((int width, int height) tileSize)
     {
-        var (width, height) = (tileSize, tileSize);
+        var (width, height) = tileSize;
 
         var points = new List<Vector2>(BezCurve);
 
@@ -160,7 +160,7 @@ public class TileCurve
         }
     }
 
-    public void Draw(Line2D line2D, int tileSize, float width = 1f)
+    public void Draw(Line2D line2D, (int width, int height) tileSize, float width = 1f)
     {
         line2D.ClearPoints();
         line2D.DefaultColor = DefaultColors[Shape];

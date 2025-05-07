@@ -7,7 +7,8 @@ namespace Sandbox.Jigsaw;
 public class Tile
 {
     public const int CurveCount = 4;
-    public const int Size = 100;
+    public static readonly (int width, int height) Size = (100, 100);
+    public static readonly (int x, int y) Padding = (20, 20);
 
     public Tile((int i, int j) coordinate, Image boardImage)
     {
@@ -29,7 +30,7 @@ public class Tile
         _boardImage.CopyFrom(boardImage);
         _boardImage.Convert(Image.Format.Rgba8);
 
-        _image = Image.CreateEmpty(Size, Size, false, Image.Format.Rgba8);
+        _image = Image.CreateEmpty(Size.width, Size.height, false, Image.Format.Rgba8);
     }
 
     private readonly Image _boardImage;
@@ -39,7 +40,7 @@ public class Tile
     private IEnumerable<TileCurve> Curves => _curvesByDirection.Values;
 
     public (int i, int j) Coordinate { get; }
-    public Vector2I PositionInBoard => new(Coordinate.j * Size, Coordinate.i * Size);
+    public Vector2I PositionInBoard => new(Coordinate.j * Size.width, Coordinate.i * Size.height);
 
     public void DrawCurves(List<Line2D> lines)
     {

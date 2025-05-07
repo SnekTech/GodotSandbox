@@ -19,9 +19,6 @@ public partial class JigsawBoard : Node2D
     [Node]
     private Node2D tilesContainer = null!;
 
-    [Node]
-    private Sprite2D border = null!;
-
     private Tile[,]? _tiles;
 
     public override void _Notification(int what)
@@ -35,23 +32,24 @@ public partial class JigsawBoard : Node2D
     public override void _Ready()
     {
         var boardImage = GD.Load<Image>(BackgroundImagePath);
-        InitBorderSprite(boardImage, Vector2I.One * 10, Colors.White);
-        LoadBoardTexture(boardImage);
+        var paddedBoardImage = SpriteUtility.GetPaddedImage(boardImage, Tile.Padding, Colors.White);
+        LoadBoardTexture(paddedBoardImage);
         InitTiles(boardImage);
 
-        ShowGhostBoard();
+        // ShowGhostBoard();
     }
 
     private void InitTiles(Image boardImage)
     {
         var (boardWidth, boardHeight) = boardImage.GetSize();
-        if (boardHeight % Tile.Size != 0 || boardWidth % Tile.Size != 0)
+        var (tileWidth, tileHeight) = Tile.Size;
+        if (boardHeight % tileHeight != 0 || boardWidth % tileWidth != 0)
         {
             throw new ArgumentException($"board image size must be multiple of {Tile.Size}");
         }
 
-        var tileRowCount = boardHeight / Tile.Size;
-        var tileColumnCount = boardWidth / Tile.Size;
+        var tileRowCount = boardHeight / tileHeight;
+        var tileColumnCount = boardWidth / tileWidth;
         _tiles = new Tile[tileRowCount, tileColumnCount];
 
         for (var i = 0; i < tileRowCount; i++)
@@ -162,33 +160,10 @@ public partial class JigsawBoard : Node2D
         board.Texture = boardTexture;
     }
 
-    private void InitBorderSprite(Image contentImage, Vector2I size, Color color)
-    {
-        var (contentWidth, contentHeight) = contentImage.GetSize();
-        var (borderWidth, borderHeight) = size;
-        var backgroundBorderImage =
-            Image.CreateEmpty(contentWidth + borderWidth * 2, contentHeight + borderHeight * 2, false,
-                Image.Format.Rgba8);
-        backgroundBorderImage.Fill(color);
-
-        for (var x = borderWidth; x < borderWidth + contentWidth; x++)
-        {
-            for (var y = borderHeight; y < borderHeight + contentHeight; y++)
-            {
-                backgroundBorderImage.SetPixel(x, y, Colors.Transparent);
-            }
-        }
-
-        var backgroundBorderTexture = new ImageTexture();
-        backgroundBorderTexture.SetImage(backgroundBorderImage);
-        border.Texture = backgroundBorderTexture;
-        border.Offset = new Vector2(-borderWidth, -borderHeight);
-    }
-
     private void ShowGhostBoard()
     {
         SetBoardAlpha(GhostBoardTransparency);
     }
 
-    private void SetBoardAlpha(float alpha) => board.Modulate = border.Modulate with { A = alpha };
+    private void SetBoardAlpha(float alpha) => board.Modulate = board.Modulate with { A = alpha };
 }
