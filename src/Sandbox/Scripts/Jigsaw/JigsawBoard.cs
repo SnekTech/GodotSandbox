@@ -32,31 +32,34 @@ public partial class JigsawBoard : Node2D
     public override void _Ready()
     {
         var boardImage = GD.Load<Image>(BackgroundImagePath);
-        var paddedBoardImage = SpriteUtility.GetPaddedImage(boardImage, Tile.Padding, Colors.White);
+        var paddedBoardImage = SpriteUtility.GetPaddedImage(boardImage, Tile.Padding, Colors.Gray);
         LoadBoardTexture(paddedBoardImage);
-        InitTiles(boardImage);
+        InitTiles(paddedBoardImage);
 
         // ShowGhostBoard();
     }
 
-    private void InitTiles(Image boardImage)
+    private void InitTiles(Image paddedBoardImage)
     {
-        var (boardWidth, boardHeight) = boardImage.GetSize();
+        var (boardWidth, boardHeight) = paddedBoardImage.GetSize();
         var (tileWidth, tileHeight) = Tile.Size;
-        if (boardHeight % tileHeight != 0 || boardWidth % tileWidth != 0)
+        var (paddingX, paddingY) = Tile.Padding;
+        
+        var (baseWidth, baseHeight) = (boardWidth - paddingX * 2, boardHeight - paddingY * 2);
+        if (baseWidth % tileWidth != 0 || baseHeight % tileHeight != 0)
         {
             throw new ArgumentException($"board image size must be multiple of {Tile.Size}");
         }
 
-        var tileRowCount = boardHeight / tileHeight;
-        var tileColumnCount = boardWidth / tileWidth;
+        var tileRowCount = baseHeight / tileHeight;
+        var tileColumnCount = baseWidth / tileWidth;
         _tiles = new Tile[tileRowCount, tileColumnCount];
 
         for (var i = 0; i < tileRowCount; i++)
         {
             for (var j = 0; j < tileColumnCount; j++)
             {
-                var tile = new Tile((i, j), boardImage);
+                var tile = new Tile((i, j), paddedBoardImage);
                 _tiles[i, j] = tile;
             }
         }

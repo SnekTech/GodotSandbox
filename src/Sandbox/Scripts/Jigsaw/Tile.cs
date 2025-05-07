@@ -7,10 +7,10 @@ namespace Sandbox.Jigsaw;
 public class Tile
 {
     public const int CurveCount = 4;
-    public static readonly (int width, int height) Size = (100, 100);
-    public static readonly (int x, int y) Padding = (20, 20);
+    public static readonly Vector2I Size = new(100, 100);
+    public static readonly Vector2I Padding = new(20, 20);
 
-    public Tile((int i, int j) coordinate, Image boardImage)
+    public Tile((int i, int j) coordinate, Image paddedBoardImage)
     {
         Coordinate = coordinate;
         var curveUp = new TileCurve { Direction = TileCurve.CurveDirection.Up };
@@ -25,22 +25,27 @@ public class Tile
             [TileCurve.CurveDirection.Left] = curveLeft
         };
 
-        var (boardImageWidth, boardImageHeight) = boardImage.GetSize();
-        _boardImage = Image.CreateEmpty(boardImageWidth, boardImageHeight, false, Image.Format.Rgba8);
-        _boardImage.CopyFrom(boardImage);
-        _boardImage.Convert(Image.Format.Rgba8);
+        var (boardImageWidth, boardImageHeight) = paddedBoardImage.GetSize();
+        _paddedBoardImage = Image.CreateEmpty(boardImageWidth, boardImageHeight, false, Image.Format.Rgba8);
+        _paddedBoardImage.CopyFrom(paddedBoardImage);
+        _paddedBoardImage.Convert(Image.Format.Rgba8);
 
-        _image = Image.CreateEmpty(Size.width, Size.height, false, Image.Format.Rgba8);
+        var imageWidth = Padding.X * 2 + Size.X;
+        var imageHeight = Padding.Y * 2 + Size.Y;
+        _image = Image.CreateEmpty(imageWidth, imageHeight, false, Image.Format.Rgba8);
     }
 
-    private readonly Image _boardImage;
+    private readonly Image _paddedBoardImage;
     private readonly Image _image;
     private readonly Dictionary<TileCurve.CurveDirection, TileCurve> _curvesByDirection;
 
     private IEnumerable<TileCurve> Curves => _curvesByDirection.Values;
 
     public (int i, int j) Coordinate { get; }
-    public Vector2I PositionInBoard => new(Coordinate.j * Size.width, Coordinate.i * Size.height);
+
+    public Vector2I PositionInBoard =>
+        new(Coordinate.j * Size.X, Coordinate.i * Size.Y);
+
 
     public void DrawCurves(List<Line2D> lines)
     {
@@ -51,7 +56,7 @@ public class Tile
         var i = 0;
         foreach (var tileCurve in Curves)
         {
-            tileCurve.Draw(lines[i], Size);
+            tileCurve.Draw(lines[i], Size, Padding);
             i++;
         }
     }
@@ -79,7 +84,7 @@ public class Tile
         var points = new List<Vector2>();
         foreach (var tileCurve in Curves)
         {
-            points.AddRange(tileCurve.GetPoints(Size));
+            points.AddRange(tileCurve.GetPoints(Size, Padding));
         }
 
         return points;
@@ -99,7 +104,7 @@ public class Tile
     private void FillPixel(int x, int y)
     {
         var (positionX, positionY) = PositionInBoard;
-        var color = _boardImage.GetPixel(positionX + x, positionY + y);
+        var color = _paddedBoardImage.GetPixel(positionX + x, positionY + y);
         _image.SetPixel(x, y, color);
     }
 

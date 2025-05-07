@@ -14,5 +14,4 @@ centered = false
 
 [node name="tilesContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
-visible = false
 position = Vector2(278, 170)

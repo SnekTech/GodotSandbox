@@ -5,7 +5,7 @@ namespace Sandbox.Jigsaw;
 
 public static class SpriteUtility
 {
-    public static Image GetPaddedImage(Image baseImage, (int x, int y) padding, Color borderColor)
+    public static Image GetPaddedImage(Image baseImage, Vector2I padding, Color borderColor)
     {
         var (baseWidth, baseHeight) = baseImage.GetSize();
         var (paddingX, paddingY) = padding;
