@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Godot;
 using GodotUtilities;
 
@@ -34,12 +35,12 @@ public partial class JigsawBoard : Node2D
         var boardImage = GD.Load<Image>(BackgroundImagePath);
         var paddedBoardImage = SpriteUtility.GetPaddedImage(boardImage, Tile.Padding, Colors.Gray);
         LoadBoardTexture(paddedBoardImage);
-        InitTiles(paddedBoardImage);
+        InitTilesAsync(paddedBoardImage).Fire();
 
-        // ShowGhostBoard();
+        ShowGhostBoard();
     }
 
-    private void InitTiles(Image paddedBoardImage)
+    private async Task InitTilesAsync(Image paddedBoardImage)
     {
         var (boardWidth, boardHeight) = paddedBoardImage.GetSize();
         var (tileWidth, tileHeight) = Tile.Size;
@@ -73,6 +74,7 @@ public partial class JigsawBoard : Node2D
                 var jigsawTile = jigsawTileScene.Instantiate<JigsawTile>();
                 tilesContainer.AddChild(jigsawTile);
                 jigsawTile.Init(_tiles[i, j]);
+                await Task.Delay(1);
             }
         }
 
