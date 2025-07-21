@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwx6whlm1rle4"]
+
+[ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
+[ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
+[ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://shaders/chapter01.gdshader" id="2_i5pfr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6sdx0"]
+shader = ExtResource("2_i5pfr")
+
+[node name="ShaderDemo" type="Node2D"]
+script = ExtResource("1_djxxl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6sdx0")
+position = Vector2(652, 420)
+scale = Vector2(3, 3)
+texture = ExtResource("2_7x4ao")
