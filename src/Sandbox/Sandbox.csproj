@@ -12,4 +12,9 @@
     <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
     <PackageReference Include="GTweensGodot" Version="6.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GodotGadgets">
+      <HintPath>..\..\..\..\RiderProjects\GodotGadgets\GodotGadgets\bin\Debug\net8.0\GodotGadgets.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
