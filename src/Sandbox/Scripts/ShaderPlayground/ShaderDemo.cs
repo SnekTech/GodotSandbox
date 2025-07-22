@@ -14,13 +14,14 @@ public partial class ShaderDemo : Node2D
     public override void _Ready()
     {
         _picSize = Pic.Texture.GetSize() * Pic.Scale;
+        Scale.DumpGd();
         _shader = (ShaderMaterial)Pic.Material;
+        _shader.SetShaderParameter(UniformResolution, _picSize);
     }
 
     public override void _Process(double delta)
     {
         _shader.SetShaderParameter(UniformMouse, GetMousePositionInPic());
-        _shader.SetShaderParameter(UniformResolution, _picSize);
     }
 
     private Vector2 GetMousePositionInPic()
