@@ -6,6 +6,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6sdx0"]
 shader = ExtResource("2_i5pfr")
+shader_parameter/u_mouse = Vector2(0, 0)
+shader_parameter/u_resolution = Vector2(0, 0)
+shader_parameter/u_global_position = Vector2(0, 0)
 
 [node name="ShaderDemo" type="Node2D"]
 script = ExtResource("1_djxxl")
@@ -16,3 +19,4 @@ material = SubResource("ShaderMaterial_6sdx0")
 scale = Vector2(3, 3)
 texture = ExtResource("2_7x4ao")
 centered = false
+flip_v = true
