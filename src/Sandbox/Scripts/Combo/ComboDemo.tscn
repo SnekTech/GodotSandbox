@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://qwy1aag4ntsq"]
+
+[ext_resource type="Script" uid="uid://bfouv5lyyv3km" path="res://Scripts/Combo/ComboDemo.cs" id="1_xbl4v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xbl4v"]
+font_size = 80
+
+[node name="ComboDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xbl4v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ComboProgressBar" type="ProgressBar" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 2
+mouse_filter = 2
+value = 70.0
+show_percentage = false
+
+[node name="ComboLevelLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Good"
+label_settings = SubResource("LabelSettings_xbl4v")
+
+[node name="ComboTimer" type="Timer" parent="."]
+unique_name_in_owner = true
