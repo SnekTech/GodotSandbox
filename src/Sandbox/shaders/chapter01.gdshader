@@ -43,15 +43,40 @@ vec3 Square(vec2 position, float width, vec2 st)
     return vec3(Square(position.x, position.y, width, width, st));
 }
 
+float circle(in vec2 _st, in float _radius){
+    vec2 l = _st-vec2(0.5);
+    return 1.-smoothstep(_radius-(_radius*0.01),
+                         _radius+(_radius*0.01),
+                         dot(l,l)*4.0);
+}
+
+mat2 rotate2d(float _angle){
+//     return mat2(cos(_angle),-sin(_angle),
+//                 sin(_angle),cos(_angle));
+
+    return mat2( vec2( cos(_angle), sin(_angle) ), vec2( -sin(_angle), cos(_angle) ) );
+}
+mat2 scale(vec2 _scale){
+//     return mat2(_scale.x,0.0,
+//                 0.0,_scale.y);
+    return mat2( vec2(_scale.x, 0.0), vec2(0.0, _scale.y) );
+}
+
+vec2 tile(vec2 st, float n)
+{
+    return st * n;
+}
 
 void fragment()
 {
     vec3 color = vec3(0.0);
     
-    vec2 startPosition = vec2(0.1, 0.2);
-//     color += Square(startPosition, 0.5, UV);
-    color += Square(0.2, 0.3, 0.5, 0.5, UV);
-    color *= (1.0 - Square(0.3, 0.4, 0.1, 0.1, UV));
+    float percent = 0.0;
+    vec2 st = tile(UV, 3.0);
+    st = fract(st);
+    
+    color = vec3(st, 0.0);
+    color = vec3(circle(st, 0.5) );
     
     COLOR = vec4(color, 1.0);
 }
