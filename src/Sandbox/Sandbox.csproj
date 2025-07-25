@@ -7,7 +7,6 @@
   <ItemGroup>
     <Content Include="**/*.puml"/>
     <Content Include="**/*.gdshader"/>
-    <Content Include="diagrams\.gdignore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dumpify" Version="0.6.6" />

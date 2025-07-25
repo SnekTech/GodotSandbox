@@ -4,7 +4,18 @@
 public partial class ComboDemo : Control
 {
     private int _level;
-    private bool _isCountingCombo;
+    private const int MaxComboLevel = 4;
+    private const float MaxComboInterval = 2.0f;
+
+    private int Level
+    {
+        get => _level;
+        set
+        {
+            _level = Mathf.Clamp(value, 0, MaxComboLevel);
+            ComboLevelLabel.Text = GetComboLevelText(_level);
+        }
+    }
 
     public override void _EnterTree()
     {
@@ -16,46 +27,63 @@ public partial class ComboDemo : Control
         ComboTimer.Timeout -= OnComboTimerTimeout;
     }
 
+    public override void _Ready()
+    {
+        Reset();
+    }
+
     public override void _UnhandledInput(InputEvent @event)
     {
         if (@event.IsActionReleased(InputActions.LeftClick))
         {
-            _level++;
-            ComboLevelLabel.Text = GetComboLevelText(_level);
-            ComboProgressBar.Value = 100;
-            StartCounting();
+            IncreaseComboLevel();
         }
     }
 
     public override void _Process(double delta)
     {
-        ComboProgressBar.Value = Mathf.Lerp(ComboProgressBar.Value, ComboTimer.TimeLeft / ComboTimer.WaitTime * 100, 1);
+        if (ComboTimer.IsStopped()) return;
+
+        ComboProgressBar.Value = ComboTimer.TimeLeft / ComboTimer.WaitTime * 100;
     }
 
-    private void StartCounting(float interval = 2)
+    private void Reset()
     {
-        ComboTimer.Start(interval);
+        Level = 0;
+        ComboProgressBar.Value = 0;
+        ComboTimer.Stop();
+    }
+
+    public void IncreaseComboLevel()
+    {
+        Level++;
+        ComboProgressBar.Value = 100;
+        ComboTimer.Start(MaxComboInterval);
+    }
+
+    private void DecreaseComboLevel()
+    {
+        if (Level <= 0) return;
+
+        Level--;
+
+        if (Level > 1) return;
+
+        Reset();
     }
 
     private void OnComboTimerTimeout()
     {
-        if (_level <= 0) return;
-
-        _level--;
-        ComboLevelLabel.Text = GetComboLevelText(_level);
-        if (_level == 0)
-        {
-            ComboTimer.Stop();
-        }
+        DecreaseComboLevel();
     }
 
     private static string GetComboLevelText(int level) =>
         level switch
         {
-            0 => string.Empty,
-            1 => "Good",
-            2 => "Great",
-            3 => "Excellent",
-            _ => "Default",
+            <= 1 => string.Empty,
+            2 => "Good",
+            3 => "Great",
+            MaxComboLevel => "Excellent",
+            _ => "Overflow!",
         };
 }
