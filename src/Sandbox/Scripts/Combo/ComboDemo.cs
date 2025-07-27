@@ -7,6 +7,7 @@ public partial class ComboDemo : Control
     {
         var comboDisplay = new BasicComboDisplay(ComboLevelLabel, ComboProgressBar);
         _.ComboComponent.ComboDisplay = comboDisplay;
+        _.ComboComponent.Reset();
     }
 
     public override void _UnhandledInput(InputEvent @event)

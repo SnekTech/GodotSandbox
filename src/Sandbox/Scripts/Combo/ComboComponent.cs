@@ -36,8 +36,6 @@ public partial class ComboComponent : Node
         Reset();
     }
 
-    #endregion
-
     public override void _Process(double delta)
     {
         if (ComboTimer.IsStopped()) return;
@@ -45,7 +43,9 @@ public partial class ComboComponent : Node
         ComboDisplay?.UpdateProgress(ComboTimer.TimeLeft / ComboTimer.WaitTime);
     }
 
-    private void Reset()
+    #endregion
+
+    public void Reset()
     {
         Level = 0;
         ComboDisplay?.UpdateProgress(0);
