@@ -6,7 +6,7 @@ uniform vec2 u_resolution;
 uniform vec2 u_global_position;
 
 const vec3 pointColor = vec3(0.58, 1.0, 0.352);
-    
+
 float plot(vec2 st, float y)
 {
 //     return smoothstep(percent - 0.02, percent, st.y)
@@ -33,13 +33,13 @@ float Square(float x0, float y0, float w, float h, vec2 st)
 {
     float x = step(x0, st.x) * step(1.0 - x0 - w, 1.0 - st.x);
     float y = step(y0, st.y) * step(1.0 - y0 - h, 1.0 - st.y);
-    
+
     return x * y;
 }
 
 vec3 Square(vec2 position, float width, vec2 st)
 {
-    
+
     return vec3(Square(position.x, position.y, width, width, st));
 }
 
@@ -70,13 +70,13 @@ vec2 tile(vec2 st, float n)
 void fragment()
 {
     vec3 color = vec3(0.0);
-    
+
     float percent = 0.0;
     vec2 st = tile(UV, 3.0);
     st = fract(st);
-    
+
     color = vec3(st, 0.0);
     color = vec3(circle(st, 0.5) );
-    
+
     COLOR = vec4(color, 1.0);
 }

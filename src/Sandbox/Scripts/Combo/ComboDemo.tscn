@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://qwy1aag4ntsq"]
+[gd_scene load_steps=4 format=3 uid="uid://qwy1aag4ntsq"]
 
 [ext_resource type="Script" uid="uid://bfouv5lyyv3km" path="res://Scripts/Combo/ComboDemo.cs" id="1_xbl4v"]
+[ext_resource type="PackedScene" uid="uid://ch8ljh6yfchuq" path="res://Scripts/Combo/ComboComponent.tscn" id="2_gefif"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xbl4v"]
 font_size = 80
@@ -30,5 +31,4 @@ text = "Good"
 label_settings = SubResource("LabelSettings_xbl4v")
 horizontal_alignment = 1
 
-[node name="ComboTimer" type="Timer" parent="."]
-unique_name_in_owner = true
+[node name="ComboComponent" parent="." instance=ExtResource("2_gefif")]
