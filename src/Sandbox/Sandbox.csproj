@@ -13,6 +13,7 @@
     <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.6.0-250721-1041.Release" />
     <PackageReference Include="GTweensGodot" Version="6.0.0" />
+    <PackageReference Include="R3" Version="1.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GodotGadgets">

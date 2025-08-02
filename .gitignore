@@ -15,3 +15,4 @@ obj/
 AssetsRaw/
 src/Sandbox/Art/assets_to_dowmload/
 *.DotSettings.user
+/src/Sandbox/addons/
