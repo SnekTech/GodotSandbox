@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdvh5t7dxc3me"]
+
+[ext_resource type="Script" uid="uid://ddfcfxtjlnp3e" path="res://Scripts/CustomDrawing/CustomDrawingDemo.cs" id="1_mjnh8"]
+[ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_hwmp8"]
+
+[node name="CustomDrawingDemo" type="Node2D"]
+clip_children = 1
+script = ExtResource("1_mjnh8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("2_hwmp8")

@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://qwy1aag4ntsq"]
+[gd_scene load_steps=6 format=3 uid="uid://qwy1aag4ntsq"]
 
 [ext_resource type="Script" uid="uid://bfouv5lyyv3km" path="res://Scripts/Combo/ComboDemo.cs" id="1_xbl4v"]
 [ext_resource type="PackedScene" uid="uid://ch8ljh6yfchuq" path="res://Scripts/Combo/ComboComponent.tscn" id="2_gefif"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xbl4v"]
 font_size = 80
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gefif"]
+size = Vector2(200, 200)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dj41f"]
 
 [node name="ComboDemo" type="Control"]
 layout_mode = 3
@@ -32,3 +37,15 @@ label_settings = SubResource("LabelSettings_xbl4v")
 horizontal_alignment = 1
 
 [node name="ComboComponent" parent="." instance=ExtResource("2_gefif")]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+value = 70.0
+fill_mode = 4
+texture_under = SubResource("PlaceholderTexture2D_gefif")
+texture_progress = SubResource("PlaceholderTexture2D_dj41f")
+texture_progress_offset = Vector2(200, 200)
+tint_under = Color(0, 0, 0, 0.490196)
+tint_progress = Color(0.956863, 0.368627, 0.65098, 1)
