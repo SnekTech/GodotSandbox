@@ -11,14 +11,9 @@ config_version=5
 [application]
 
 config/name="Sandbox"
-run/main_scene="uid://v1wt3ycouwjy"
+run/main_scene="uid://qwy1aag4ntsq"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
-
-[autoload]
-
-FrameProviderDispatcher="*res://addons/R3.Godot/FrameProviderDispatcher.cs"
-ObservableTrackerRuntimeHook="*res://addons/R3.Godot/ObservableTrackerRuntimeHook.cs"
 
 [display]
 
@@ -34,10 +29,6 @@ project/solution_directory="../.."
 [editor]
 
 naming/scene_name_casing=1
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/R3.Godot/plugin.cfg")
 
 [input]
 

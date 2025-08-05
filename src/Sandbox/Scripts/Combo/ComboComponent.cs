@@ -5,7 +5,7 @@ public partial class ComboComponent : Node
 {
     private int _level;
     private const int MaxComboLevel = 4;
-    private const float MaxComboInterval = 2.0f;
+    private const float DefaultComboInterval = 2.0f;
 
     public IComboDisplay? ComboDisplay { get; set; }
 
@@ -15,7 +15,7 @@ public partial class ComboComponent : Node
         set
         {
             _level = Mathf.Clamp(value, 0, MaxComboLevel);
-            ComboDisplay?.UpdateLevelText(GetComboLevelText(_level));
+            ComboDisplay?.DisplayLevelText(GetComboLevelText(_level));
         }
     }
 
@@ -40,7 +40,7 @@ public partial class ComboComponent : Node
     {
         if (ComboTimer.IsStopped()) return;
 
-        ComboDisplay?.UpdateProgress(ComboTimer.TimeLeft / ComboTimer.WaitTime);
+        UpdateTimerProgress();
     }
 
     #endregion
@@ -48,15 +48,15 @@ public partial class ComboComponent : Node
     public void Reset()
     {
         Level = 0;
-        ComboDisplay?.UpdateProgress(0);
         ComboTimer.Stop();
+        UpdateTimerProgress();
     }
 
     public void IncreaseComboLevel()
     {
         Level++;
-        ComboDisplay?.UpdateProgress(1);
-        ComboTimer.Start(MaxComboInterval);
+        ComboTimer.Start(DefaultComboInterval);
+        UpdateTimerProgress();
     }
 
     private void DecreaseComboLevel()
@@ -70,10 +70,9 @@ public partial class ComboComponent : Node
         Reset();
     }
 
-    private void OnComboTimerTimeout()
-    {
-        DecreaseComboLevel();
-    }
+    private void UpdateTimerProgress() => ComboDisplay?.DisplayProgress(ComboTimer.TimeLeft / ComboTimer.WaitTime);
+
+    private void OnComboTimerTimeout() => DecreaseComboLevel();
 
     private static string GetComboLevelText(int level) =>
         level switch

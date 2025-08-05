@@ -2,13 +2,13 @@
 
 public class BasicComboDisplay(Label levelLabel, ProgressBar progressBar): IComboDisplay
 {
-    public void UpdateLevelText(string text)
+    public void DisplayLevelText(string levelText)
     {
-        levelLabel.Text = text;
+        levelLabel.Text = levelText;
     }
 
-    public void UpdateProgress(double progressNormalized)
+    public void DisplayProgress(double progressNormalized)
     {
-        progressBar.Value = progressNormalized * 100;
+        progressBar.Value = progressNormalized * progressBar.MaxValue;
     }
 }

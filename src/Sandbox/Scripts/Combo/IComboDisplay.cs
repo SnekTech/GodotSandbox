@@ -2,6 +2,6 @@
 
 public interface IComboDisplay
 {
-    void UpdateLevelText(string text);
-    void UpdateProgress(double progressNormalized);
+    void DisplayLevelText(string levelText);
+    void DisplayProgress(double progressNormalized);
 }
