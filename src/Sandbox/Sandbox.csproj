@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="**/*.puml"/>
-    <Content Include="**/*.gdshader"/>
+    <Content Include="**/*.puml" />
+    <Content Include="**/*.gdshader" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dumpify" Version="0.6.6" />

@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxoi5a2m0s78o"]
-
-[ext_resource type="PackedScene" uid="uid://d4mwt2d8ggn53" path="res://Scenes/Tutorial/Arrow.tscn" id="1_thyfh"]
-
-[node name="Tutorial" type="Node2D"]
-
-[node name="Arrow" parent="." instance=ExtResource("1_thyfh")]
