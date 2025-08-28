@@ -3,6 +3,7 @@ render_mode unshaded;
 
 uniform vec4 u_focusRect;
 uniform vec2 u_resolution;
+uniform vec4 u_maskColor: source_color;
 
 vec4 GetNormalized(vec4 rect, vec2 resolution)
 {
@@ -33,7 +34,6 @@ float Square(vec4 rect, vec2 st)
 
 void fragment() {
     vec4 normalizedRect = GetNormalized(u_focusRect, u_resolution);
-    vec3 maskColor = vec3(0.0, 0.3, 0.0);
-    float alpha = Square(normalizedRect, UV);
-    COLOR = vec4(maskColor,1.0 - alpha);
+    float focusAreaAlpha = 1.0 - Square(normalizedRect, UV);
+    COLOR = vec4(u_maskColor.rgb, focusAreaAlpha * u_maskColor.a);
 }

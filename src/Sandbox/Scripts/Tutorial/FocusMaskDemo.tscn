@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://daoo24bceh807"]
+
+[ext_resource type="Script" uid="uid://jkak8tbe6kf7" path="res://Scripts/Tutorial/FocusMaskDemo.cs" id="1_smoab"]
+[ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_87rp3"]
+[ext_resource type="PackedScene" uid="uid://xu56awwpetwc" path="res://Scripts/Tutorial/FocusMaskLayer.tscn" id="3_b2pyh"]
+
+[node name="FocusMaskDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_smoab")
+
+[node name="Grid" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 300.0
+color = Color(0.998005, 0.0727676, 0.503291, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(424, 386)
+texture = ExtResource("2_87rp3")
+
+[node name="FocusMaskLayer" parent="." instance=ExtResource("3_b2pyh")]

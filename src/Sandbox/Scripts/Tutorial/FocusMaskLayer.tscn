@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://xu56awwpetwc"]
+
+[ext_resource type="Shader" uid="uid://bk3hfh408i602" path="res://Scripts/Tutorial/focus_mask.gdshader" id="1_dwsw0"]
+[ext_resource type="Script" uid="uid://cr86vp71p2l3j" path="res://Scripts/Tutorial/FocusMaskLayer.cs" id="1_g4b0p"]
+[ext_resource type="Texture2D" uid="uid://bdoinuoyjcq67" path="res://Art/unit.png" id="2_g4b0p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10h07"]
+shader = ExtResource("1_dwsw0")
+shader_parameter/u_focusRect = Vector4(0, 0, 0, 0)
+shader_parameter/u_resolution = Vector2(0, 0)
+shader_parameter/u_maskColor = Color(0, 0, 0, 0.701961)
+
+[node name="FocusMaskLayer" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_g4b0p")
+
+[node name="FocusMaskSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_10h07")
+scale = Vector2(1913.98, 1080)
+texture = ExtResource("2_g4b0p")
+centered = false
