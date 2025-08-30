@@ -1,10 +1,13 @@
-﻿namespace Sandbox.Tutorial;
+﻿using GodotGadgets.Extensions;
+
+namespace Sandbox.Tutorial;
 
 [SceneTree]
 public partial class FocusMaskDemo : Control
 {
     public override void _Ready()
     {
-        _.FocusMaskLayer.FocusRect = _.Grid.GetRect();
+        var focusRect = _.Grid.GetRect();
+        _.FocusMaskLayer.FocusAsync(focusRect, CancellationToken.None).Fire();
     }
 }
