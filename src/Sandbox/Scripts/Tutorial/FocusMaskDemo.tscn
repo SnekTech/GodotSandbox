@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://jkak8tbe6kf7" path="res://Scripts/Tutorial/FocusMaskDemo.cs" id="1_smoab"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_87rp3"]
-[ext_resource type="PackedScene" uid="uid://xu56awwpetwc" path="res://Scripts/Tutorial/FocusMaskLayer.tscn" id="3_b2pyh"]
+[ext_resource type="PackedScene" uid="uid://xu56awwpetwc" path="res://Scripts/Tutorial/FocusMask.tscn" id="3_b2pyh"]
 
 [node name="FocusMaskDemo" type="Control"]
 layout_mode = 3
@@ -25,4 +25,25 @@ color = Color(0.998005, 0.0727676, 0.503291, 1)
 position = Vector2(424, 386)
 texture = ExtResource("2_87rp3")
 
-[node name="FocusMaskLayer" parent="." instance=ExtResource("3_b2pyh")]
+[node name="FocusedButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 152.0
+offset_top = 149.0
+offset_right = 197.0
+offset_bottom = 180.0
+text = "click"
+
+[node name="MaskedButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 196.0
+offset_top = 441.0
+offset_right = 265.0
+offset_bottom = 472.0
+text = "masked"
+
+[node name="FocusMaskLayer" type="CanvasLayer" parent="."]
+
+[node name="FocusMask" parent="FocusMaskLayer" instance=ExtResource("3_b2pyh")]
+unique_name_in_owner = true

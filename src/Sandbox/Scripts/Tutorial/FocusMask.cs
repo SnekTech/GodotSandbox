@@ -5,25 +5,39 @@ using GTweensGodot.Extensions;
 namespace Sandbox.Tutorial;
 
 [SceneTree]
-public partial class FocusMaskLayer : CanvasLayer
+public partial class FocusMask : Sprite2D
 {
     private const int DefaultPadding = 10;
 
     private FocusMaskShader _focusMaskShader = null!;
+    private Rect2 _inputValidArea;
 
     public override void _Ready()
     {
-        _focusMaskShader = new FocusMaskShader(FocusMaskSprite.GetMaterialAs<ShaderMaterial>());
+        _focusMaskShader = new FocusMaskShader(this.GetMaterialAs<ShaderMaterial>());
 
-        var resolution = FocusMaskSprite.GetViewportRect().Size;
-        FocusMaskSprite.GetTextureAs<GradientTexture2D>().SetSize(resolution);
+        var resolution = GetViewportRect().Size;
+        this.GetTextureAs<GradientTexture2D>().SetSize(resolution);
 
         _focusMaskShader.Resolution.Value = resolution;
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton inputEventMouseButton)
+        {
+            if (!_inputValidArea.HasPoint(inputEventMouseButton.Position))
+            {
+                GetViewport().SetInputAsHandled();
+            }
+        }
+    }
+
     public async Task FocusAsync(Rect2 focusRect, CancellationToken token)
     {
-        _focusMaskShader.FocusRect.Value = focusRect.Grow(DefaultPadding);
+        var focusRectWithPadding = focusRect.Grow(DefaultPadding);
+        _inputValidArea = focusRectWithPadding;
+        _focusMaskShader.FocusRect.Value = focusRectWithPadding;
         Show();
 
         await _focusMaskShader.Progress.Tween(1, 1f)

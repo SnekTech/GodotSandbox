@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://xu56awwpetwc"]
 
 [ext_resource type="Shader" uid="uid://bk3hfh408i602" path="res://Scripts/Tutorial/focus_mask.gdshader" id="1_dwsw0"]
-[ext_resource type="Script" uid="uid://cr86vp71p2l3j" path="res://Scripts/Tutorial/FocusMaskLayer.cs" id="1_g4b0p"]
+[ext_resource type="Script" uid="uid://cr86vp71p2l3j" path="res://Scripts/Tutorial/FocusMask.cs" id="1_g4b0p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_10h07"]
 shader = ExtResource("1_dwsw0")
 shader_parameter/u_focusRect = Vector4(100, 100, 100, 100)
 shader_parameter/u_resolution = Vector2(1920, 1080)
 shader_parameter/u_maskColor = Color(0, 0, 0, 0.701961)
-shader_parameter/u_progress = 0.287
+shader_parameter/u_progress = 0.721
 
 [sub_resource type="Gradient" id="Gradient_dwsw0"]
 offsets = PackedFloat32Array(1)
@@ -19,11 +19,8 @@ gradient = SubResource("Gradient_dwsw0")
 width = 1920
 height = 1080
 
-[node name="FocusMaskLayer" type="CanvasLayer"]
-script = ExtResource("1_g4b0p")
-
-[node name="FocusMaskSprite" type="Sprite2D" parent="."]
-unique_name_in_owner = true
+[node name="FocusMask" type="Sprite2D"]
 material = SubResource("ShaderMaterial_10h07")
 texture = SubResource("GradientTexture2D_g4b0p")
 centered = false
+script = ExtResource("1_g4b0p")
