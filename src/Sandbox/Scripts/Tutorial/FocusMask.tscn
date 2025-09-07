@@ -5,6 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_10h07"]
 shader = ExtResource("1_dwsw0")
+shader_parameter/u_fromRect = Vector4(0, 0, 0, 0)
 shader_parameter/u_focusRect = Vector4(100, 100, 100, 100)
 shader_parameter/u_resolution = Vector2(1920, 1080)
 shader_parameter/u_maskColor = Color(0, 0, 0, 0.701961)

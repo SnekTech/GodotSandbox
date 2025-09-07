@@ -1,6 +1,7 @@
 shader_type canvas_item;
 render_mode unshaded;
 
+uniform vec4 u_fromRect;
 uniform vec4 u_focusRect;
 uniform vec2 u_resolution;
 uniform vec4 u_maskColor: source_color;
@@ -34,9 +35,9 @@ float Square(vec4 rect, vec2 st)
 }
 
 void fragment() {
+    vec4 normalizedFromRect = GetNormalized(u_fromRect, u_resolution);
     vec4 normalizedFocusRect = GetNormalized(u_focusRect, u_resolution);
-    vec4 fullscreenRect = vec4(0.0, 0.0, 1.0, 1.0);
-    vec4 actualRect = mix(fullscreenRect, normalizedFocusRect, u_progress);
+    vec4 actualRect = mix(normalizedFromRect , normalizedFocusRect, u_progress);
     float focusAreaAlpha = 1.0 - Square(actualRect, UV);
     COLOR = vec4(u_maskColor.rgb, focusAreaAlpha * u_maskColor.a);
 }
