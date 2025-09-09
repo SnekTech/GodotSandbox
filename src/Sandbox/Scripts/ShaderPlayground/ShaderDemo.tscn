@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwx6whlm1rle4"]
+[gd_scene load_steps=6 format=3 uid="uid://dwx6whlm1rle4"]
 
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
-[ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://shaders/chapter01.gdshader" id="2_i5pfr"]
+[ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6sdx0"]
+shader = ExtResource("2_i5pfr")
+shader_parameter/u_mouse = Vector2(0, 0)
+shader_parameter/u_resolution = Vector2(0, 0)
+shader_parameter/u_global_position = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
 shader = ExtResource("2_i5pfr")
 shader_parameter/u_mouse = Vector2(0, 0)
 shader_parameter/u_resolution = Vector2(0, 0)
@@ -15,8 +21,16 @@ script = ExtResource("1_djxxl")
 
 [node name="Pic" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_6sdx0")
 scale = Vector2(3, 3)
 texture = ExtResource("2_7x4ao")
 centered = false
 flip_v = true
+
+[node name="Canvas" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_i5pfr")
+scale = Vector2(4, 4)
+texture = ExtResource("2_7x4ao")
+centered = false
