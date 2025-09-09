@@ -1,4 +1,8 @@
-﻿namespace Sandbox.Tutorial;
+﻿using GodotGadgets.ShaderStuff;
+using GTweens.Extensions;
+using GTweens.Tweens;
+
+namespace Sandbox.Tutorial;
 
 public class FocusMaskShader(ShaderMaterial shaderMaterial)
 {
@@ -14,4 +18,10 @@ public class FocusMaskShader(ShaderMaterial shaderMaterial)
         public static readonly StringName Resolution = "u_resolution";
         public static readonly StringName Progress = "u_progress";
     }
+}
+
+public static class UniformExtensions
+{
+    public static GTween Tween(this Uniform<float> floatUniform, float to, float duration) =>
+        GTweenExtensions.Tween(() => floatUniform.Value, current => floatUniform.Value = current, to, duration);
 }
