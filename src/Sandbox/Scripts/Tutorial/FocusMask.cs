@@ -11,6 +11,7 @@ public partial class FocusMask : Sprite2D
 
     private FocusMaskShader _focusMaskShader = null!;
     private Rect2? _currentFocusRect;
+    private bool _isMovingFocus;
 
     public override void _Ready()
     {
@@ -41,6 +42,12 @@ public partial class FocusMask : Sprite2D
 
     public async Task FocusAsync(Rect2 focusRect, CancellationToken token)
     {
+        if (_isMovingFocus)
+        {
+            "current focus not complete, cant move to next".DumpGd();
+            return;
+        }
+        
         var lastFocusRect = _currentFocusRect ?? GetViewportRect();
         _currentFocusRect = focusRect.Grow(DefaultPadding);
 
@@ -49,8 +56,10 @@ public partial class FocusMask : Sprite2D
         _focusMaskShader.Progress.Value = 0;
         Show();
 
+        _isMovingFocus = true;
         await _focusMaskShader.Progress.Tween(1, 1f)
             .SetEasing(Easing.OutCubic)
             .PlayAsync(token);
+        _isMovingFocus = false;
     }
 }

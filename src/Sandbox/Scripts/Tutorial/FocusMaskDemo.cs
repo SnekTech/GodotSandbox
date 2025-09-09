@@ -6,7 +6,6 @@ namespace Sandbox.Tutorial;
 public partial class FocusMaskDemo : Control
 {
     private FocusStepSequence _focusStepSequence = null!;
-    private bool _isMovingFocus;
 
     public override void _Ready()
     {
@@ -19,21 +18,13 @@ public partial class FocusMaskDemo : Control
     {
         if (@event.IsActionPressed(InputActions.TestKeyM))
         {
-            if (_isMovingFocus)
-            {
-                "current focus not complete, cant move to next".DumpGd();
-                return;
-            }
-
             MovingToNextFocus().Fire();
         }
     }
 
     private async Task MovingToNextFocus()
     {
-        _isMovingFocus = true;
         await FocusMask.FocusAsync(_focusStepSequence.CurrentStep.RectToFocus, CancellationToken.None);
         _focusStepSequence.StepForward();
-        _isMovingFocus = false;
     }
 }
