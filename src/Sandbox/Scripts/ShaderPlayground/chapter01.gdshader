@@ -1,7 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded;
 
-#include "res://ShaderLib/basic_shapes.gdshaderinc"
+#include "res://ShaderLib/rect_lib.gdshaderinc"
+#include "res://ShaderLib/circle_lib.gdshaderinc"
 
 uniform vec2 u_mouse;
 uniform vec2 u_resolution;
@@ -36,12 +37,11 @@ void fragment()
 {
     vec2 mouse = FlipY(u_mouse);
     vec2 st = FlipY(UV);
-
-    vec3 color = vec3(0.0);
     float pct = 0.0;
+    vec3 color = vec3(0.0);
 
-    Rect rect = Rect(vec2(0.1, 0.1), vec2(0.6, 0.3));
-    pct = DrawRectFrame(rect, st);
+    Circle circle = Circle(vec2(0.4, 0.4), 0.3);
+    pct = DrawCircleFrame(circle, st);
 
     color = vec3(pct);
 
