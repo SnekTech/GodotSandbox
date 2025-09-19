@@ -3,6 +3,16 @@ struct Rect {
     vec2 Size;
 };
 
+Rect Vec4ToRect(in vec4 u_rect)
+{
+    return Rect(u_rect.xy, u_rect.zw);
+}
+
+vec4 RectToVec4(in Rect rect)
+{
+    return vec4(rect.Position, rect.Size);
+}
+
 Rect GetNormalized(Rect rect, vec2 resolution)
 {
     float x = rect.Position.x / resolution.x;
@@ -14,6 +24,12 @@ Rect GetNormalized(Rect rect, vec2 resolution)
     width = clamp(width, 0.0, 1.0);
     height = clamp(height, 0.0, 1.0);
     return Rect(vec2(x, y), vec2(width, height));
+}
+
+Rect MixRect(in Rect a, in Rect b, float progress)
+{
+    vec4 mixed = mix(RectToVec4(a), RectToVec4(b), progress);
+    return Vec4ToRect(mixed);
 }
 
 float Square(float x0, float y0, float w, float h, vec2 st)
