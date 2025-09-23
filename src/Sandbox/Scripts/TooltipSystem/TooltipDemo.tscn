@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnfuvs5b8ucrw"]
+
+[ext_resource type="Script" uid="uid://crcccxy6eo43b" path="res://Scripts/TooltipSystem/TooltipDemo.cs" id="1_g72dn"]
+[ext_resource type="PackedScene" uid="uid://g1b1vkw4rr61" path="res://Scripts/TooltipSystem/TooltipLayer.tscn" id="2_6rtdj"]
+[ext_resource type="Script" uid="uid://og4opjlnlfh4" path="res://Scripts/TooltipSystem/ControlTooltipTrigger.cs" id="3_xokb2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g72dn"]
+size = Vector2(88, 104)
+
+[node name="TooltipDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g72dn")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(282, 78)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(34, 42)
+shape = SubResource("RectangleShape2D_g72dn")
+
+[node name="TooltipLayer" parent="." instance=ExtResource("2_6rtdj")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 210.0
+offset_right = 432.0
+offset_bottom = 310.0
+color = Color(1, 0.639216, 0, 1)
+
+[node name="ControlTooltipTrigger" type="Node" parent="ColorRect"]
+script = ExtResource("3_xokb2")
+metadata/_custom_type_script = "uid://og4opjlnlfh4"

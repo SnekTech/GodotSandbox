@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://buhrxkhy4hoy4"]
+
+[ext_resource type="Script" uid="uid://d061qac5oetmx" path="res://Scripts/TooltipSystem/Tooltip.cs" id="1_n2g05"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g72dn"]
+font_size = 24
+
+[node name="Tooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 220.0
+offset_bottom = 227.0
+mouse_filter = 2
+script = ExtResource("1_n2g05")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 220.0
+offset_bottom = 227.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Header" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tooltip Header"
+label_settings = SubResource("LabelSettings_g72dn")
+
+[node name="Content" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
+autowrap_mode = 2
