@@ -1,7 +1,7 @@
 ﻿namespace Sandbox.TooltipSystem;
 
 [GlobalClass]
-public partial class Area2DTooltipTrigger : TooltipTrigger
+public sealed partial class Area2DTooltipTrigger : TooltipTrigger
 {
     public override void _EnterTree()
     {

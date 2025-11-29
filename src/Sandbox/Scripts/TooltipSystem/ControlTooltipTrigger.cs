@@ -1,7 +1,7 @@
 ﻿namespace Sandbox.TooltipSystem;
 
 [GlobalClass]
-public partial class ControlTooltipTrigger : TooltipTrigger
+public sealed partial class ControlTooltipTrigger : TooltipTrigger
 {
     public override void _EnterTree()
     {

@@ -21,6 +21,7 @@ position = Vector2(34, 42)
 shape = SubResource("RectangleShape2D_g72dn")
 
 [node name="Area2DTooltipTrigger" type="Node" parent="Area2D"]
+unique_name_in_owner = true
 script = ExtResource("2_4s85f")
 metadata/_custom_type_script = "uid://btdjpk1r1euua"
 
@@ -35,5 +36,6 @@ offset_bottom = 310.0
 color = Color(1, 0.639216, 0, 1)
 
 [node name="ControlTooltipTrigger" type="Node" parent="ColorRect"]
+unique_name_in_owner = true
 script = ExtResource("3_xokb2")
 metadata/_custom_type_script = "uid://og4opjlnlfh4"

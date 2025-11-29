@@ -2,12 +2,15 @@
 
 public abstract partial class TooltipTrigger : Node
 {
-    protected static void OnMouseEntered()
+    public TooltipContent Content { get; set; } = TooltipContent.New("test title",
+        "test test content testent ");
+
+    protected void OnMouseEntered()
     {
-        TooltipLayer.ShowTooltip();
+        TooltipLayer.ShowTooltip(Content);
     }
 
-    protected static void OnMouseExited()
+    protected void OnMouseExited()
     {
         TooltipLayer.HideTooltip();
     }
