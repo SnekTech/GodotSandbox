@@ -1,19 +1,27 @@
-﻿namespace Sandbox.TooltipSystem;
+﻿using GodotGadgets.Extensions;
+
+namespace Sandbox.TooltipSystem;
 
 [GlobalClass]
 public sealed partial class Area2DTooltipTrigger : TooltipTrigger
 {
+    private Area2D _parent = null!;
+    private Rect2 _collisionShapeRect;
+
+    public override Rect2 ParentRect => _collisionShapeRect with { Position = _parent.GlobalPosition };
+
     public override void _EnterTree()
     {
-        var parent = GetParent<Area2D>();
-        parent.MouseEntered += OnMouseEntered;
-        parent.MouseExited += OnMouseExited;
+        _parent = GetParent<Area2D>();
+        _collisionShapeRect = _parent.GetFirstChildOfType<CollisionShape2D>().GetShape().GetRect();
+
+        _parent.MouseEntered += OnMouseEntered;
+        _parent.MouseExited += OnMouseExited;
     }
 
     public override void _ExitTree()
     {
-        var parent = GetParent<Area2D>();
-        parent.MouseEntered -= OnMouseEntered;
-        parent.MouseExited -= OnMouseExited;
+        _parent.MouseEntered -= OnMouseEntered;
+        _parent.MouseExited -= OnMouseExited;
     }
 }

@@ -14,10 +14,10 @@ anchors_preset = 0
 script = ExtResource("1_g72dn")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(282, 78)
+position = Vector2(290, 82)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(34, 42)
+position = Vector2(44, 52)
 shape = SubResource("RectangleShape2D_g72dn")
 
 [node name="Area2DTooltipTrigger" type="Node" parent="Area2D"]

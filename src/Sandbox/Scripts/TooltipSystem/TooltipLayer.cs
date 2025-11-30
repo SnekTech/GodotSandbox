@@ -16,14 +16,14 @@ public partial class TooltipLayer : CanvasLayer
         Instance.Tooltip.Hide();
     }
 
-    public static void ShowTooltip(TooltipContent content)
+    public static void ShowTooltip(TooltipContent content, Vector2 globalPosition)
     {
         _hideCancellationSource?.CancelAndDispose();
         _hideCancellationSource = null;
 
         _showCancellationSource ??= new CancellationTokenSource();
 
-        Instance.Tooltip.ShowAsync(content, _showCancellationSource.Token).Fire();
+        Instance.Tooltip.ShowAsync(content, globalPosition, _showCancellationSource.Token).Fire();
     }
 
     public static void HideTooltip()
