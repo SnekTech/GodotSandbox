@@ -13,7 +13,8 @@ public sealed partial class Area2DTooltipTrigger : TooltipTrigger
     public override void _EnterTree()
     {
         _parent = GetParent<Area2D>();
-        _collisionShapeRect = _parent.GetFirstChildOfType<CollisionShape2D>().GetShape().GetRect();
+        _collisionShapeRect = _parent.CollisionShape.GetShape().GetRect();
+        ResetCollisionRectOriginToTopLeft(_collisionShapeRect.Size);
 
         _parent.MouseEntered += OnMouseEntered;
         _parent.MouseExited += OnMouseExited;
@@ -23,5 +24,10 @@ public sealed partial class Area2DTooltipTrigger : TooltipTrigger
     {
         _parent.MouseEntered -= OnMouseEntered;
         _parent.MouseExited -= OnMouseExited;
+    }
+
+    private void ResetCollisionRectOriginToTopLeft(Vector2 rectSize)
+    {
+        _parent.CollisionShape.Position = rectSize / 2;
     }
 }
