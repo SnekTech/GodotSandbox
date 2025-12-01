@@ -5,7 +5,7 @@ public sealed partial class ControlTooltipTrigger : TooltipTrigger
 {
     private Control _parent = null!;
     
-    public override Rect2 ParentRect => _parent.GetGlobalRect();
+    public override Rect2 TargetGlobalRect => _parent.GetGlobalRect();
 
     public override void _EnterTree()
     {

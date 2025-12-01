@@ -14,7 +14,8 @@ anchors_preset = 0
 script = ExtResource("1_g72dn")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(290, 82)
+position = Vector2(1389, 620)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(44, 52)
@@ -29,13 +30,25 @@ metadata/_custom_type_script = "uid://btdjpk1r1euua"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 272.0
-offset_top = 210.0
-offset_right = 432.0
-offset_bottom = 310.0
+offset_left = 1733.0
+offset_top = 955.0
+offset_right = 1893.0
+offset_bottom = 1055.0
 color = Color(1, 0.639216, 0, 1)
 
 [node name="ControlTooltipTrigger" type="Node" parent="ColorRect"]
 unique_name_in_owner = true
+script = ExtResource("3_xokb2")
+metadata/_custom_type_script = "uid://og4opjlnlfh4"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1735.0
+offset_top = 815.0
+offset_right = 1895.0
+offset_bottom = 915.0
+color = Color(1, 0.639216, 0, 1)
+
+[node name="ControlTooltipTrigger2" type="Node" parent="ColorRect2"]
 script = ExtResource("3_xokb2")
 metadata/_custom_type_script = "uid://og4opjlnlfh4"

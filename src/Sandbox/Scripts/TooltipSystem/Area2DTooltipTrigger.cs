@@ -8,7 +8,7 @@ public sealed partial class Area2DTooltipTrigger : TooltipTrigger
     private Area2D _parent = null!;
     private Rect2 _collisionShapeRect;
 
-    public override Rect2 ParentRect => _collisionShapeRect with { Position = _parent.GlobalPosition };
+    public override Rect2 TargetGlobalRect => _collisionShapeRect with { Position = _parent.GlobalPosition };
 
     public override void _EnterTree()
     {
