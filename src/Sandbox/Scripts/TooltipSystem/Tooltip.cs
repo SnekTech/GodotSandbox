@@ -1,5 +1,4 @@
-﻿using GodotGadgets.Extensions;
-using GTweensGodot.Extensions;
+﻿using GTweensGodot.Extensions;
 
 namespace Sandbox.TooltipSystem;
 
@@ -39,8 +38,6 @@ public partial class Tooltip : Control
         var targetPosition = targetGlobalRect.Position;
         var targetSize = targetGlobalRect.Size;
         
-        tooltipSize.DumpGd(nameof(tooltipSize));
-
         var tooltipX = IsOverflowHorizontally()
             ? targetPosition.X - tooltipMarginX - tooltipSize.X
             : targetPosition.X + targetSize.X + tooltipMarginX;

@@ -6,8 +6,7 @@ namespace Sandbox.TooltipSystem;
 public partial class TooltipLayer : CanvasLayer
 {
     private static TooltipLayer Instance { get; set; } = null!;
-    private static CancellationTokenSource? _showCancellationSource;
-    private static CancellationTokenSource? _hideCancellationSource;
+    private static CancellationTokenSource _currentActionCancellationSource = new();
 
     public override void _Ready()
     {
@@ -18,21 +17,17 @@ public partial class TooltipLayer : CanvasLayer
 
     public static void ShowTooltip(TooltipContent content, Rect2 targetGlobalRect)
     {
-        _hideCancellationSource?.CancelAndDispose();
-        _hideCancellationSource = null;
+        _currentActionCancellationSource.CancelAndDispose();
+        _currentActionCancellationSource = new CancellationTokenSource();
 
-        _showCancellationSource ??= new CancellationTokenSource();
-
-        Instance.Tooltip.ShowAsync(content, targetGlobalRect, _showCancellationSource.Token).Fire();
+        Instance.Tooltip.ShowAsync(content, targetGlobalRect, _currentActionCancellationSource.Token).Fire();
     }
 
     public static void HideTooltip()
     {
-        _showCancellationSource?.CancelAndDispose();
-        _showCancellationSource = null;
+        _currentActionCancellationSource.CancelAndDispose();
+        _currentActionCancellationSource = new CancellationTokenSource();
 
-        _hideCancellationSource ??= new CancellationTokenSource();
-
-        Instance.Tooltip.HideAsync(_hideCancellationSource.Token).Fire();
+        Instance.Tooltip.HideAsync(_currentActionCancellationSource.Token).Fire();
     }
 }
