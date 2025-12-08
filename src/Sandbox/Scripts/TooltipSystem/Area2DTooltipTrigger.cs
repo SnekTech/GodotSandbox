@@ -1,33 +1,33 @@
-﻿using GodotGadgets.Extensions;
+﻿using GodotGadgets.TooltipSystem;
 
 namespace Sandbox.TooltipSystem;
 
 [GlobalClass]
-public sealed partial class Area2DTooltipTrigger : TooltipTrigger
+public sealed partial class Area2DTooltipTrigger : Node
 {
-    private Area2D _parent = null!;
-    private Rect2 _collisionShapeRect;
+    [Export]
+    TooltipLayer _tooltipLayer = null!;
 
-    public override Rect2 TargetGlobalRect => _collisionShapeRect with { Position = _parent.GlobalPosition };
+    Area2D _parent = null!;
+    TooltipTriggerBehavior _tooltipTriggerBehavior = null!;
+
+    public TooltipContent Content
+    {
+        set => _tooltipTriggerBehavior.Content = value;
+    }
 
     public override void _EnterTree()
     {
         _parent = GetParent<Area2D>();
-        _collisionShapeRect = _parent.CollisionShape.GetShape().GetRect();
-        ResetCollisionRectOriginToTopLeft(_collisionShapeRect.Size);
+        _tooltipTriggerBehavior = TooltipTriggerBehavior.FromArea2D(_parent, _tooltipLayer);
 
-        _parent.MouseEntered += OnMouseEntered;
-        _parent.MouseExited += OnMouseExited;
+        _parent.MouseEntered += _tooltipTriggerBehavior.OnMouseEntered;
+        _parent.MouseExited += _tooltipTriggerBehavior.OnMouseExited;
     }
 
     public override void _ExitTree()
     {
-        _parent.MouseEntered -= OnMouseEntered;
-        _parent.MouseExited -= OnMouseExited;
-    }
-
-    private void ResetCollisionRectOriginToTopLeft(Vector2 rectSize)
-    {
-        _parent.CollisionShape.Position = rectSize / 2;
+        _parent.MouseEntered -= _tooltipTriggerBehavior.OnMouseEntered;
+        _parent.MouseExited -= _tooltipTriggerBehavior.OnMouseExited;
     }
 }

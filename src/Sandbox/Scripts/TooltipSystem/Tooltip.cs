@@ -1,11 +1,12 @@
-﻿using GTweensGodot.Extensions;
+﻿using GodotGadgets.TooltipSystem;
+using GTweensGodot.Extensions;
 
 namespace Sandbox.TooltipSystem;
 
 [SceneTree]
 public partial class Tooltip : Control
 {
-    private const float FadeDuration = 0.3f;
+    const float FadeDuration = 0.3f;
 
     internal Task ShowAsync(TooltipContent content, Rect2 targetGlobalRect, CancellationToken token)
     {
@@ -32,7 +33,7 @@ public partial class Tooltip : Control
         Hide();
     }
 
-    private static Vector2 GetValidGlobalPosition(Rect2 targetGlobalRect, Vector2 tooltipSize, Vector2 viewportSize)
+    static Vector2 GetValidGlobalPosition(Rect2 targetGlobalRect, Vector2 tooltipSize, Vector2 viewportSize)
     {
         const int tooltipMarginX = 10;
         var targetPosition = targetGlobalRect.Position;

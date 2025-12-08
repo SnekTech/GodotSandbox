@@ -1,3 +1,5 @@
+using GodotGadgets.TooltipSystem;
+
 namespace Sandbox.TooltipSystem;
 
 [SceneTree]
