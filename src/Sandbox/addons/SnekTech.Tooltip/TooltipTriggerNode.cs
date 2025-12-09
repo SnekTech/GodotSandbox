@@ -1,6 +1,6 @@
 using GodotGadgets.TooltipSystem;
 
-namespace Sandbox.TooltipSystem;
+namespace SnekTech.Tooltip;
 
 public abstract partial class TooltipTriggerNode<T> : Node where T : Node
 {

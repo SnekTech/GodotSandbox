@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnfuvs5b8ucrw"]
 
 [ext_resource type="Script" uid="uid://crcccxy6eo43b" path="res://Scripts/TooltipSystem/TooltipDemo.cs" id="1_g72dn"]
-[ext_resource type="Script" uid="uid://btdjpk1r1euua" path="res://Scripts/TooltipSystem/Area2DTooltipTrigger.cs" id="2_4s85f"]
+[ext_resource type="Script" uid="uid://bdy45j7s4x8y5" path="res://addons/SnekTech.Tooltip/Area2DTooltipTrigger.cs" id="2_4s85f"]
 [ext_resource type="PackedScene" uid="uid://g1b1vkw4rr61" path="res://Scripts/TooltipSystem/TooltipLayer.tscn" id="2_6rtdj"]
-[ext_resource type="Script" uid="uid://og4opjlnlfh4" path="res://Scripts/TooltipSystem/ControlTooltipTrigger.cs" id="3_xokb2"]
+[ext_resource type="Script" uid="uid://bqyxsgs1wevtr" path="res://addons/SnekTech.Tooltip/ControlTooltipTrigger.cs" id="5_3ljty"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g72dn"]
 size = Vector2(88, 104)
@@ -24,7 +24,7 @@ shape = SubResource("RectangleShape2D_g72dn")
 [node name="Area2DTooltipTrigger" type="Node" parent="Area2D"]
 unique_name_in_owner = true
 script = ExtResource("2_4s85f")
-metadata/_custom_type_script = "uid://btdjpk1r1euua"
+metadata/_custom_type_script = "uid://bdy45j7s4x8y5"
 
 [node name="TooltipLayer" parent="." instance=ExtResource("2_6rtdj")]
 
@@ -38,8 +38,8 @@ color = Color(1, 0.639216, 0, 1)
 
 [node name="ControlTooltipTrigger" type="Node" parent="ColorRect"]
 unique_name_in_owner = true
-script = ExtResource("3_xokb2")
-metadata/_custom_type_script = "uid://og4opjlnlfh4"
+script = ExtResource("5_3ljty")
+metadata/_custom_type_script = "uid://bqyxsgs1wevtr"
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 0
@@ -48,7 +48,3 @@ offset_top = 815.0
 offset_right = 1895.0
 offset_bottom = 915.0
 color = Color(1, 0.639216, 0, 1)
-
-[node name="ControlTooltipTrigger2" type="Node" parent="ColorRect2"]
-script = ExtResource("3_xokb2")
-metadata/_custom_type_script = "uid://og4opjlnlfh4"

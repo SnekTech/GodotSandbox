@@ -1,4 +1,4 @@
-﻿namespace Sandbox.TooltipSystem;
+﻿namespace SnekTech.Tooltip;
 
 [GlobalClass]
 public sealed partial class Area2DTooltipTrigger : TooltipTriggerNode<Area2D>
