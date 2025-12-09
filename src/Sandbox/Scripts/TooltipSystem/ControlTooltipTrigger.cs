@@ -1,33 +1,17 @@
-﻿using GodotGadgets.TooltipSystem;
-
-namespace Sandbox.TooltipSystem;
+﻿namespace Sandbox.TooltipSystem;
 
 [GlobalClass]
-public sealed partial class ControlTooltipTrigger : Node
+public sealed partial class ControlTooltipTrigger : TooltipTriggerNode<Control>
 {
-    [Export]
-    TooltipLayer _tooltipLayer = null!;
-
-    Control _parent = null!;
-    TooltipTriggerBehavior _tooltipTriggerBehavior = null!;
-
-    public TooltipContent Content
+    protected override void OnEnterTree()
     {
-        set => _tooltipTriggerBehavior.Content = value;
+        Parent.MouseEntered += TooltipTriggerBehavior.OnMouseEntered;
+        Parent.MouseExited += TooltipTriggerBehavior.OnMouseExited;
     }
 
-    public override void _EnterTree()
+    protected override void OnExitTree()
     {
-        _parent = GetParent<Control>();
-        _tooltipTriggerBehavior = TooltipTriggerBehavior.FromControl(_parent, _tooltipLayer);
-
-        _parent.MouseEntered += _tooltipTriggerBehavior.OnMouseEntered;
-        _parent.MouseExited += _tooltipTriggerBehavior.OnMouseExited;
-    }
-
-    public override void _ExitTree()
-    {
-        _parent.MouseEntered -= _tooltipTriggerBehavior.OnMouseEntered;
-        _parent.MouseExited -= _tooltipTriggerBehavior.OnMouseExited;
+        Parent.MouseEntered -= TooltipTriggerBehavior.OnMouseEntered;
+        Parent.MouseExited -= TooltipTriggerBehavior.OnMouseExited;
     }
 }
