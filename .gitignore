@@ -15,4 +15,5 @@ obj/
 AssetsRaw/
 src/Sandbox/Art/assets_to_dowmload/
 *.DotSettings.user
-/src/Sandbox/addons/
+*.DotSettings
+/src/Sandbox/addons/R3.Godot
