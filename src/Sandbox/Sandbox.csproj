@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Dumpify" Version="0.6.6" />
     <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
-    <PackageReference Include="GodotSharp.SourceGenerators" Version="2.6.0-250721-1041.Release" />
+    <PackageReference Include="GodotSharp.SourceGenerators" Version="2.7.0-251124-0938.Release" />
     <PackageReference Include="GTweensGodot" Version="6.0.0" />
     <PackageReference Include="R3" Version="1.3.0" />
   </ItemGroup>
