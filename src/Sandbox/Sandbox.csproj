@@ -19,5 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\RiderProjects\GodotGadgets\GodotGadgets\GodotGadgets.csproj" />
+    <ProjectReference Include="..\MineSweeperTools\MineSweeperTools.csproj" />
   </ItemGroup>
 </Project>
