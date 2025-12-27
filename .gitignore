@@ -16,6 +16,9 @@ AssetsRaw/
 src/Sandbox/Art/assets_to_dowmload/
 *.DotSettings.user
 *.DotSettings
-/src/Sandbox/addons/R3.Godot
+
+# only track my addons
+/src/Sandbox/addons/*
+!/src/Sandbox/addons/SnekTech.Tooltip
 
 *.dll
