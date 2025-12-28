@@ -6,7 +6,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1C28B04D-0CD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GodotGadgets", "..\..\RiderProjects\GodotGadgets\GodotGadgets\GodotGadgets.csproj", "{34065F2B-7EF8-4BAD-9534-3022603C54A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineSweeperTools", "src\MineSweeperTools\MineSweeperTools.csproj", "{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{9BC69702-5D07-4BA4-B628-8426B67E3066}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MineSweeperTools", "..\SnekSweeper\libs\MineSweeperTools\MineSweeperTools.csproj", "{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,15 +29,15 @@ Global
 		{34065F2B-7EF8-4BAD-9534-3022603C54A5}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{34065F2B-7EF8-4BAD-9534-3022603C54A5}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{34065F2B-7EF8-4BAD-9534-3022603C54A5}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6B42680F-F888-48C6-AF27-10134EF1777D} = {1C28B04D-0CD2-456E-95FD-17371BE7F076}
-		{25D87219-3BF6-4E20-82A8-C194BA8C3F4A} = {1C28B04D-0CD2-456E-95FD-17371BE7F076}
+		{96EE57F6-AA22-4369-BBD5-AFC0B28AB92F} = {9BC69702-5D07-4BA4-B628-8426B67E3066}
 	EndGlobalSection
 EndGlobal
