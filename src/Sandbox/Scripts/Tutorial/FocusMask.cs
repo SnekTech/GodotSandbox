@@ -1,6 +1,7 @@
 ﻿using GodotGadgets.Extensions;
 using GTweens.Easings;
 using GTweensGodot.Extensions;
+using Sandbox.ShaderPlayground;
 
 namespace Sandbox.Tutorial;
 

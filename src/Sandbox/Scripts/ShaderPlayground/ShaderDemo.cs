@@ -5,23 +5,20 @@ namespace Sandbox.ShaderPlayground;
 [SceneTree]
 public partial class ShaderDemo : Node2D
 {
-    private Vector2 _canvasSize;
-    private ShaderBookShader _shader = null!;
+    Vector2 _canvasSize;
+    UltimateShader _ultimateShader = null!;
 
     public override void _Ready()
     {
-        _shader = new ShaderBookShader(Canvas.GetMaterialAs<ShaderMaterial>());
-        
-        _canvasSize = Canvas.Texture.GetSize() * Canvas.Scale;
-        _shader.Resolution.Value = _canvasSize;
+        _ultimateShader = new UltimateShader(Canvas.GetMaterialAs<ShaderMaterial>());
     }
 
-    public override void _Process(double delta)
+    void PlayTestAnimation()
     {
-        _shader.Mouse.Value = GetMousePositionInPic();
+        _ultimateShader.Radius.Tween(0.5f, 1);
     }
 
-    private Vector2 GetMousePositionInPic()
+    Vector2 GetMousePositionInPic()
     {
         var (relativeX, relativeY) = GetGlobalMousePosition() - Canvas.GlobalPosition;
         var (width, height) = _canvasSize;
