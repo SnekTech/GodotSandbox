@@ -13,8 +13,6 @@ shader_parameter/u_global_position = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
 shader = ExtResource("4_6sdx0")
-shader_parameter/offset = Vector2(0, 0)
-shader_parameter/radius = 0.69
 
 [node name="ShaderDemo" type="Node2D" unique_id=671583393]
 script = ExtResource("1_djxxl")

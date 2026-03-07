@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 uniform vec2 offset;
 uniform float radius;
+uniform float diagonal_progress : hint_range(0.0, 1.0);
 
 void vertex()
 {
@@ -16,9 +17,14 @@ float CircleMask(vec2 uv, float r)
     return step(dx * dx + dy * dy, r * r);
 }
 
+float Diagonal(vec2 uv, float progress)
+{
+    return step(progress, (uv.x + uv.y) * 0.5);
+}
+
 void fragment()
 {
     float circleMask = CircleMask(UV, radius);
     
-    COLOR = vec4(COLOR.rgb, circleMask);
+    COLOR.a = Diagonal(UV, diagonal_progress);
 }

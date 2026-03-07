@@ -1,4 +1,7 @@
 ﻿using GodotGadgets.Extensions;
+using GodotGadgets.ShaderStuff;
+using GTweens.Builders;
+using GTweensGodot.Extensions;
 
 namespace Sandbox.ShaderPlayground;
 
@@ -11,11 +14,21 @@ public partial class ShaderDemo : Node2D
     public override void _Ready()
     {
         _ultimateShader = new UltimateShader(Canvas.GetMaterialAs<ShaderMaterial>());
+        
+        PlayTestAnimation();
     }
 
     void PlayTestAnimation()
     {
-        _ultimateShader.Radius.Tween(0.5f, 1);
+        _ultimateShader.Radius.Value = 0.5f;
+        GTweenSequenceBuilder.New()
+            .Append(_ultimateShader.Radius.Tween(0.1f, 1))
+            .Append(_ultimateShader.Radius.Tween(0.5f,1))
+            .Append(_ultimateShader.Offset.Tween(new Vector2(50, 0), 1))
+            .Append(_ultimateShader.Offset.Tween(new Vector2(0, 0), 1))
+            .Build()
+            .SetMaxLoops()
+            .Play();
     }
 
     Vector2 GetMousePositionInPic()
