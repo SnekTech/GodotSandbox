@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
 [ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
-[ext_resource type="Shader" uid="uid://d2cg12xlph43p" path="res://Scripts/ShaderPlayground/ultimate.gdshader" id="4_6sdx0"]
+[ext_resource type="Shader" uid="uid://ccgi02yi64wj6" path="res://Scripts/ShaderPlayground/crosshair.gdshader" id="4_6sdx0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6sdx0"]
 shader = ExtResource("2_i5pfr")
@@ -13,6 +13,13 @@ shader_parameter/u_global_position = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
 shader = ExtResource("4_6sdx0")
+shader_parameter/u_center_size = 0.2750000130625
+shader_parameter/u_outer_radius = 0.39600001881
+shader_parameter/u_ring_width = 0.1910000090725
+shader_parameter/u_cutout_width = 0.622000029545
+shader_parameter/u_crosshair_distance = 0.1130000053675
+shader_parameter/u_crosshair_length = 0.234000011115
+shader_parameter/u_crosshair_width = 0.1870000088825
 
 [node name="ShaderDemo" type="Node2D" unique_id=671583393]
 script = ExtResource("1_djxxl")
