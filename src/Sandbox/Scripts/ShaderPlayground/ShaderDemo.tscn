@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
 [ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
 [ext_resource type="Shader" uid="uid://beoykbh7wpf6m" path="res://Scripts/ShaderPlayground/shield.gdshader" id="4_6sdx0"]
+[ext_resource type="Shader" uid="uid://bf33evjwe3hsy" path="res://Scripts/ShaderPlayground/outline.gdshader" id="5_noj2w"]
+[ext_resource type="Texture2D" uid="uid://bcbjobkv6r1eh" path="res://Art/arrow.png" id="6_noj2w"]
 
 [sub_resource type="Gradient" id="Gradient_6sdx0"]
 offsets = PackedFloat32Array(0)
@@ -36,10 +38,16 @@ shader_parameter/u_highlight_color = Color(1, 0, 0.301961, 1)
 shader_parameter/u_glow = 0.5330000253175
 shader_parameter/u_noise = SubResource("NoiseTexture2D_3324q")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3324q"]
+shader = ExtResource("5_noj2w")
+shader_parameter/u_line_color = Color(1, 0, 0.301961, 1)
+shader_parameter/u_line_thickness = 0.5850000277875
+
 [node name="ShaderDemo" type="Node2D" unique_id=671583393]
 script = ExtResource("1_djxxl")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=942079311]
+visible = false
 position = Vector2(7, -364)
 scale = Vector2(3.0703125, 756.99994)
 texture = SubResource("GradientTexture1D_plr3i")
@@ -55,6 +63,11 @@ flip_v = true
 
 [node name="Canvas" type="Sprite2D" parent="." unique_id=56088353]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_i5pfr")
 scale = Vector2(4, 4)
 texture = ExtResource("2_7x4ao")
+
+[node name="Outlined" type="Sprite2D" parent="." unique_id=799066779]
+material = SubResource("ShaderMaterial_3324q")
+texture = ExtResource("6_noj2w")
