@@ -17,7 +17,7 @@ void fragment()
 //     COLOR.a = step( distance( abs(uv.x), 0.5 ), 0.1 );
 //     COLOR.rgb = vec3( uv, 0 );
 
-    // pixelate
+    // basic pixelate
 //     vec2 grid = vec2( 4., 3. );
 //     vec2 pixelated_uv = floor( UV * grid ) / grid;
 //     COLOR.rgb = vec3( pixelated_uv, 0 );
