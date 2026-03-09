@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
 [ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
-[ext_resource type="Shader" uid="uid://beoykbh7wpf6m" path="res://Scripts/ShaderPlayground/shield.gdshader" id="4_6sdx0"]
+[ext_resource type="Shader" uid="uid://b4fvjefh8trax" path="res://Scripts/ShaderPlayground/uv_control.gdshader" id="4_noj2w"]
 [ext_resource type="Shader" uid="uid://bf33evjwe3hsy" path="res://Scripts/ShaderPlayground/outline.gdshader" id="5_noj2w"]
 [ext_resource type="Texture2D" uid="uid://bcbjobkv6r1eh" path="res://Art/arrow.png" id="6_noj2w"]
 
@@ -20,23 +20,9 @@ shader_parameter/u_mouse = Vector2(0, 0)
 shader_parameter/u_resolution = Vector2(0, 0)
 shader_parameter/u_global_position = Vector2(0, 0)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_noj2w"]
-frequency = 0.002
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3324q"]
-noise = SubResource("FastNoiseLite_noj2w")
-seamless = true
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
-shader = ExtResource("4_6sdx0")
-shader_parameter/u_radius = 0.5
-shader_parameter/u_width = 0.5
-shader_parameter/u_highlight_center = Vector2(0.18, 0.145)
-shader_parameter/u_highlight_alpha = 0.7170000340575
-shader_parameter/u_main_color = Color(0.160784, 0.678431, 1, 1)
-shader_parameter/u_highlight_color = Color(1, 0, 0.301961, 1)
-shader_parameter/u_glow = 0.5330000253175
-shader_parameter/u_noise = SubResource("NoiseTexture2D_3324q")
+shader = ExtResource("4_noj2w")
+shader_parameter/u_offset = Vector2(0.65, 0.23)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3324q"]
 shader = ExtResource("5_noj2w")
@@ -63,11 +49,11 @@ flip_v = true
 
 [node name="Canvas" type="Sprite2D" parent="." unique_id=56088353]
 unique_name_in_owner = true
-visible = false
 material = SubResource("ShaderMaterial_i5pfr")
 scale = Vector2(4, 4)
 texture = ExtResource("2_7x4ao")
 
 [node name="Outlined" type="Sprite2D" parent="." unique_id=799066779]
+visible = false
 material = SubResource("ShaderMaterial_3324q")
 texture = ExtResource("6_noj2w")
