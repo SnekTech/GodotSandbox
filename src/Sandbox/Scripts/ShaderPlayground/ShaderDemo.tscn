@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
 [ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
-[ext_resource type="Shader" uid="uid://csotohddemxjn" path="res://Scripts/ShaderPlayground/pixelate.gdshader" id="4_noj2w"]
-[ext_resource type="Shader" uid="uid://bf33evjwe3hsy" path="res://Scripts/ShaderPlayground/outline.gdshader" id="5_noj2w"]
+[ext_resource type="Shader" uid="uid://csotohddemxjn" path="res://Scripts/ShaderPlayground/chaper02/pixelate.gdshader" id="4_noj2w"]
+[ext_resource type="Shader" uid="uid://bf33evjwe3hsy" path="res://Scripts/ShaderPlayground/chaper02/outline.gdshader" id="5_noj2w"]
 [ext_resource type="Texture2D" uid="uid://bcbjobkv6r1eh" path="res://Art/arrow.png" id="6_noj2w"]
 
 [sub_resource type="Gradient" id="Gradient_6sdx0"]
