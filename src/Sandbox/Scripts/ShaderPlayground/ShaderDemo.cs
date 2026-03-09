@@ -20,15 +20,7 @@ public partial class ShaderDemo : Node2D
 
     void PlayTestAnimation()
     {
-        _ultimateShader.Radius.Value = 0.5f;
-        GTweenSequenceBuilder.New()
-            .Append(_ultimateShader.Radius.Tween(0.1f, 1))
-            .Append(_ultimateShader.Radius.Tween(0.5f,1))
-            .Append(_ultimateShader.Offset.Tween(new Vector2(50, 0), 1))
-            .Append(_ultimateShader.Offset.Tween(new Vector2(0, 0), 1))
-            .Build()
-            .SetMaxLoops()
-            .Play();
+        
     }
 
     Vector2 GetMousePositionInPic()
