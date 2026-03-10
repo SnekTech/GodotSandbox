@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
 [ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
-[ext_resource type="Shader" uid="uid://b2rbbuvc15rwa" path="res://Scripts/ShaderPlayground/chaper02/dissolve.gdshader" id="4_noj2w"]
+[ext_resource type="Shader" uid="uid://crlhc8qr7y176" path="res://Scripts/ShaderPlayground/chaper02/fire.gdshader" id="4_noj2w"]
 [ext_resource type="Shader" uid="uid://bf33evjwe3hsy" path="res://Scripts/ShaderPlayground/chaper02/outline.gdshader" id="5_noj2w"]
 [ext_resource type="Texture2D" uid="uid://bcbjobkv6r1eh" path="res://Art/arrow.png" id="6_noj2w"]
 
@@ -20,20 +20,23 @@ shader_parameter/u_mouse = Vector2(0, 0)
 shader_parameter/u_resolution = Vector2(0, 0)
 shader_parameter/u_global_position = Vector2(0, 0)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_3324q"]
-noise_type = 0
-frequency = 0.0027
-fractal_gain = 0.25
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_noj2w"]
+fractal_gain = 0.32
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_akf4g"]
-noise = SubResource("FastNoiseLite_3324q")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3324q"]
+noise = SubResource("FastNoiseLite_noj2w")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
 shader = ExtResource("4_noj2w")
-shader_parameter/u_noise = SubResource("NoiseTexture2D_akf4g")
-shader_parameter/u_progress = 0.7690000365275
-shader_parameter/u_gradient_progress = 0.210000009975
-shader_parameter/u_dissolve_color = Color(0, 0.529412, 0.317647, 1)
+shader_parameter/u_width = 0.2710000128725
+shader_parameter/u_size = 0.5590000265525
+shader_parameter/u_blur = 0.4510000214225
+shader_parameter/u_fire_noise = SubResource("NoiseTexture2D_3324q")
+shader_parameter/u_flicker = 0.5430000257925
+shader_parameter/u_main_color = Color(1, 0, 0.301961, 1)
+shader_parameter/u_mid_color = Color(1, 0.639216, 0, 1)
+shader_parameter/u_inner_color = Color(1, 0.92549, 0.152941, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3324q"]
 shader = ExtResource("5_noj2w")
