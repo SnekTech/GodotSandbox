@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dkkwqwgl2u3dy" path="res://Scripts/ShaderPlayground/ShaderDemo.cs" id="1_djxxl"]
 [ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_7x4ao"]
-[ext_resource type="Shader" uid="uid://dfvhylncgwwdd" path="res://Scripts/ShaderPlayground/chapter01.gdshader" id="2_i5pfr"]
 [ext_resource type="Shader" uid="uid://bogxv35oxnklm" path="res://Scripts/ShaderPlayground/chapter03/stamina.gdshader" id="4_noj2w"]
-[ext_resource type="Shader" path="res://Scripts/ShaderPlayground/chaper02/outline.gdshader" id="5_noj2w"]
-[ext_resource type="Texture2D" uid="uid://bcbjobkv6r1eh" path="res://Art/arrow.png" id="6_noj2w"]
 
 [sub_resource type="Gradient" id="Gradient_6sdx0"]
 offsets = PackedFloat32Array(0)
@@ -13,12 +10,6 @@ colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_plr3i"]
 gradient = SubResource("Gradient_6sdx0")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6sdx0"]
-shader = ExtResource("2_i5pfr")
-shader_parameter/u_mouse = Vector2(0, 0)
-shader_parameter/u_resolution = Vector2(0, 0)
-shader_parameter/u_global_position = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i5pfr"]
 shader = ExtResource("4_noj2w")
@@ -28,13 +19,7 @@ shader_parameter/u_width = 0.5
 shader_parameter/u_bg_color = Color(0.113725, 0.168627, 0.32549, 1)
 shader_parameter/u_color = Color(0, 0.529412, 0.317647, 1)
 shader_parameter/u_increase_color = Color(1, 0.945098, 0.909804, 1)
-shader_parameter/u_decrease_color = Color(1, 0, 0.301961, 1)
 shader_parameter/u_increase_progress = 0.47600002261
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3324q"]
-shader = ExtResource("5_noj2w")
-shader_parameter/u_line_color = Color(1, 0, 0.301961, 1)
-shader_parameter/u_line_thickness = 0.5850000277875
 
 [node name="ShaderDemo" type="Node2D" unique_id=671583393]
 script = ExtResource("1_djxxl")
@@ -45,21 +30,7 @@ position = Vector2(7, -364)
 scale = Vector2(3.0703125, 756.99994)
 texture = SubResource("GradientTexture1D_plr3i")
 
-[node name="Pic" type="Sprite2D" parent="." unique_id=117492886]
-unique_name_in_owner = true
-visible = false
-material = SubResource("ShaderMaterial_6sdx0")
-scale = Vector2(3, 3)
-texture = ExtResource("2_7x4ao")
-centered = false
-flip_v = true
-
 [node name="Canvas" type="Sprite2D" parent="." unique_id=56088353]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_i5pfr")
 texture = ExtResource("2_7x4ao")
-
-[node name="Outlined" type="Sprite2D" parent="." unique_id=799066779]
-visible = false
-material = SubResource("ShaderMaterial_3324q")
-texture = ExtResource("6_noj2w")

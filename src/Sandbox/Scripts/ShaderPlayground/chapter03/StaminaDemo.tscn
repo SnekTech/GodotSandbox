@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c8niopcclls6s"]
+
+[ext_resource type="Shader" uid="uid://bogxv35oxnklm" path="res://Scripts/ShaderPlayground/chapter03/stamina.gdshader" id="1_5w4oy"]
+[ext_resource type="Texture2D" uid="uid://drytnb5grlikc" path="res://icon.svg" id="2_o3utn"]
+[ext_resource type="Script" uid="uid://bmwpvq426gxpj" path="res://Scripts/ShaderPlayground/chapter03/StaminaDemo.cs" id="3_laiv4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gnhy"]
+shader = ExtResource("1_5w4oy")
+shader_parameter/u_progress = 0.18400000874
+shader_parameter/u_radius = 0.5
+shader_parameter/u_width = 0.5
+shader_parameter/u_bg_color = Color(0, 0, 0, 1)
+shader_parameter/u_color = Color(0, 0.894118, 0.211765, 1)
+shader_parameter/u_increase_color = Color(1, 0.945098, 0.909804, 1)
+shader_parameter/u_increase_progress = 0.26000001235
+
+[node name="StaminaDemo" type="Sprite2D" unique_id=3533321]
+material = SubResource("ShaderMaterial_4gnhy")
+texture = ExtResource("2_o3utn")
+script = ExtResource("3_laiv4")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=762483168]
+zoom = Vector2(2.89, 2.89)

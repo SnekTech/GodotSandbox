@@ -6,7 +6,6 @@ uniform float u_width: hint_range(0, 1) = 0.5;
 uniform vec3 u_bg_color: source_color;
 uniform vec3 u_color: source_color;
 uniform vec3 u_increase_color: source_color;
-uniform vec3 u_decrease_color: source_color;
 uniform float u_increase_progress: hint_range(0, 1);
 
 float Circle(vec2 uv, float radius)
