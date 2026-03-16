@@ -39,8 +39,8 @@ Rect MixRect(in Rect a, in Rect b, float progress)
 
 float Square(float x0, float y0, float w, float h, vec2 st)
 {
-    float x = step(x0, st.x) * step(1.0 - x0 - w, 1.0 - st.x);
-    float y = step(y0, st.y) * step(1.0 - y0 - h, 1.0 - st.y);
+    float x = step( x0, st.x ) * step( st.x, x0 + w );
+    float y = step( y0, st.y ) * step( st.y, y0 + h );
 
     return x * y;
 }
