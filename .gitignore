@@ -22,3 +22,5 @@ src/Sandbox/Art/assets_to_dowmload/
 !/src/Sandbox/addons/SnekTech.Tooltip
 
 *.dll
+
+**/TestResults/
