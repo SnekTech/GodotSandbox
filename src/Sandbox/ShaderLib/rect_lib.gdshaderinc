@@ -3,6 +3,11 @@ struct Rect {
     vec2 Size;
 };
 
+float Clamp01(float value)
+{
+    return clamp(value, 0.0, 1.0);
+}
+
 Rect Vec4ToRect(in vec4 u_rect)
 {
     return Rect(u_rect.xy, u_rect.zw);
@@ -19,10 +24,10 @@ Rect GetNormalized(Rect rect, vec2 resolution)
     float y = rect.Position.y / resolution.y;
     float width = rect.Size.x / resolution.x;
     float height = rect.Size.y / resolution.y;
-    x = clamp(x, 0.0, 1.0);
-    y = clamp(y, 0.0, 1.0);
-    width = clamp(width, 0.0, 1.0);
-    height = clamp(height, 0.0, 1.0);
+    x = Clamp01(x);
+    y = Clamp01(y);
+    width = Clamp01(width);
+    height = Clamp01(height);
     return Rect(vec2(x, y), vec2(width, height));
 }
 
