@@ -1,26 +1,12 @@
 ﻿using GodotGadgets.Extensions;
 using GodotGadgets.ShaderStuff;
 using GodotGadgets.Tasks;
+using GodotGadgets.TweenStuff;
 using GTweens.Builders;
-using GTweens.Tweens;
-using GTweensGodot.Extensions;
 
 namespace Sandbox.ShaderPlayground.chapter03;
 
-class CancellableTweenHolder
-{
-    CancellationTokenSource _ctsPrevious = new();
-
-    public Task CancelPreviousAndPlayAsync(GTween newTween, CancellationToken ct = default)
-    {
-        _ctsPrevious.CancelAndDispose();
-        _ctsPrevious = new CancellationTokenSource();
-
-        return newTween.PlayAsync(ct.LinkTo(_ctsPrevious.Token).Token);
-    }
-}
-
-class Player
+sealed class Player
 {
     internal event Action<PropertyChange<float>>? StaminaChanged;
 
