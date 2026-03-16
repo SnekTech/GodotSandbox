@@ -2,11 +2,12 @@
 
 public class FocusStepSequence(List<FocusStep> steps)
 {
-    private int _index;
+    int _index;
 
     public FocusStep CurrentStep => steps[_index];
 
-    public void StepForward() => _index = Mathf.Min(_index + 1, steps.Count - 1);
+    public void Forward() => _index = Mathf.Min(_index + 1, steps.Count - 1);
+    public void Cycle() => _index = (_index + 1) % steps.Count;
 
     public void Reset() => _index = 0;
 }

@@ -8,11 +8,12 @@ namespace Sandbox.Tutorial;
 [SceneTree]
 public partial class FocusMask : Sprite2D
 {
-    private const int DefaultPadding = 20;
+    const int DefaultPadding = 20;
 
-    private FocusMaskShader _focusMaskShader = null!;
-    private Rect2? _currentFocusRect;
-    private bool _isMovingFocus;
+    FocusMaskShader _focusMaskShader = null!;
+    Rect2? _currentFocusRect;
+    public bool IsMovingFocus { get; private set; }
+
 
     public override void _Ready()
     {
@@ -43,12 +44,6 @@ public partial class FocusMask : Sprite2D
 
     public async Task FocusAsync(Rect2 focusRect, CancellationToken token)
     {
-        if (_isMovingFocus)
-        {
-            "current focus not complete, cant move to next".DumpGd();
-            return;
-        }
-        
         var lastFocusRect = _currentFocusRect ?? GetViewportRect();
         _currentFocusRect = focusRect.Grow(DefaultPadding);
 
@@ -57,10 +52,10 @@ public partial class FocusMask : Sprite2D
         _focusMaskShader.Progress.Value = 0;
         Show();
 
-        _isMovingFocus = true;
+        IsMovingFocus = true;
         await _focusMaskShader.Progress.Tween(1, 1f)
             .SetEasing(Easing.OutCubic)
             .PlayAsync(token);
-        _isMovingFocus = false;
+        IsMovingFocus = false;
     }
 }

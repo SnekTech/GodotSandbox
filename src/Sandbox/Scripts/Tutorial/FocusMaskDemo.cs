@@ -1,11 +1,12 @@
-﻿using GodotGadgets.Tasks;
+﻿using GodotGadgets.Extensions;
+using GodotGadgets.Tasks;
 
 namespace Sandbox.Tutorial;
 
 [SceneTree]
 public partial class FocusMaskDemo : Control
 {
-    private FocusStepSequence _focusStepSequence = null!;
+    FocusStepSequence _focusStepSequence = null!;
 
     public override void _Ready()
     {
@@ -22,9 +23,15 @@ public partial class FocusMaskDemo : Control
         }
     }
 
-    private async Task MovingToNextFocus()
+    async Task MovingToNextFocus()
     {
+        if (FocusMask.IsMovingFocus)
+        {
+            "current focus not complete, cant move to next".DumpGd();
+            return;
+        }
+
         await FocusMask.FocusAsync(_focusStepSequence.CurrentStep.RectToFocus, CancellationToken.None);
-        _focusStepSequence.StepForward();
+        _focusStepSequence.Cycle();
     }
 }
