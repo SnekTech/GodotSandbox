@@ -1,4 +1,4 @@
-hader_type canvas_item;
+shader_type canvas_item;
 render_mode unshaded;
 
 #include "res://ShaderLib/rect_lib.gdshaderinc"

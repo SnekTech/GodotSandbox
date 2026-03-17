@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/state-diagram
+'!theme sunlust
+!theme blueprint
+
+title 
+    Monster Hunter inspired
+    Controller Item-selecting
+end title
+
+hide empty description
+
+state idle
+state selecting
+state selected
+
+[*] --> idle
+idle --> selecting : right joystick
+selecting --> selected : release
+selected --> idle
+
+@enduml

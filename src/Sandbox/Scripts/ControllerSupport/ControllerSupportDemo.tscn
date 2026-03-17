@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cgfuob3wubnh2"]
+
+[ext_resource type="Script" uid="uid://ceubinaxppwyw" path="res://Scripts/ControllerSupport/ControllerSupportDemo.cs" id="1_dyp0u"]
+[ext_resource type="Shader" uid="uid://fth0eqpblu8v" path="res://Scripts/ControllerSupport/vector_indicator.gdshader" id="2_l5mk1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5kae"]
+shader = ExtResource("2_l5mk1")
+shader_parameter/u_vector_input = Vector2(0.52, 0.46)
+shader_parameter/u_line_width = 0.18000000855
+shader_parameter/u_line_color = Color(1, 0.945098, 0.909804, 1)
+
+[sub_resource type="Gradient" id="Gradient_jbexf"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dyp0u"]
+gradient = SubResource("Gradient_jbexf")
+
+[node name="ControllerSupportDemo" type="Node2D" unique_id=2033693302]
+script = ExtResource("1_dyp0u")
+
+[node name="JoyStickInputIndicator" type="Sprite2D" parent="." unique_id=1955956205]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_b5kae")
+texture = SubResource("GradientTexture2D_dyp0u")
