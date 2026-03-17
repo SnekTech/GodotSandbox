@@ -24,7 +24,16 @@ gradient = SubResource("Gradient_jbexf")
 [node name="ControllerSupportDemo" type="Node2D" unique_id=2033693302]
 script = ExtResource("1_dyp0u")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=468703147]
+zoom = Vector2(6.765, 6.765)
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+
 [node name="JoyStickInputIndicator" type="Sprite2D" parent="." unique_id=1955956205]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_b5kae")
 texture = SubResource("GradientTexture2D_dyp0u")
+centered = false
