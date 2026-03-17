@@ -1,10 +1,18 @@
 shader_type canvas_item;
 
 uniform vec2 u_vector_input;
+group_uniforms line;
 uniform float u_line_width: hint_range(0, 1) = 0.5;
 uniform vec3 u_line_color: source_color;
+group_uniforms;
+
+group_uniforms end_circle;
+uniform float u_end_circle_radius: hint_range(0, 1);
+uniform vec3 u_end_circle_color: source_color;
+group_uniforms;
 
 const float MaxLineWidth = 0.1;
+const float MaxEndCircleRadius = 0.2;
 
 float Clamp01(float value)
 {
@@ -30,9 +38,20 @@ float DrawLineSegment(vec2 uv, vec2 point_a, vec2 point_b)
     return step( dist, u_line_width * MaxLineWidth );
 }
 
+float DrawCircle(vec2 uv, vec2 center, float radius)
+{
+    float d = distance( uv, center );
+    return step( d, radius );
+}
+
 void fragment()
 {
     vec2 uv = UV * 2. - 1.;
-    float line_segment_mask = DrawLineSegment( uv, vec2( 0.0, 0.0 ), u_vector_input );
-    COLOR.rgb = mix( COLOR.rgb, u_line_color, line_segment_mask );
+    vec2 point_a = vec2( 0.0, 0.0 );
+    vec2 point_b = u_vector_input;
+    float lineSegmentMask = DrawLineSegment( uv, point_a, point_b );
+    float endCircleMask = DrawCircle( uv, point_b, u_end_circle_radius * MaxEndCircleRadius );
+    
+    COLOR.rgb = mix( COLOR.rgb, u_line_color, lineSegmentMask );
+    COLOR.rgb = mix( COLOR.rgb, u_end_circle_color, endCircleMask );
 }
