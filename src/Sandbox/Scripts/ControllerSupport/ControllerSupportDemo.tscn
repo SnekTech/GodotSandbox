@@ -10,6 +10,9 @@ shader_parameter/u_line_width = 0.1430000067925
 shader_parameter/u_line_color = Color(1, 0.945098, 0.909804, 1)
 shader_parameter/u_end_circle_radius = 0.14000000665
 shader_parameter/u_end_circle_color = Color(1, 0, 0.301961, 1)
+shader_parameter/u_circle_frame_thickness = 0.1410000066975
+shader_parameter/u_threshold1 = 0.7
+shader_parameter/u_circle_frame_color = Color(0.760784, 0.764706, 0.780392, 1)
 
 [sub_resource type="Gradient" id="Gradient_jbexf"]
 offsets = PackedFloat32Array(0)
