@@ -27,11 +27,14 @@ public class BasicSpecs
             () => new VectorToDirectionTestData(new Vector2(0f, 0.4f), CompassDirection.South),
             () => new VectorToDirectionTestData(new Vector2(0f, -0.4f), CompassDirection.North),
             () => new VectorToDirectionTestData(new Vector2(0f, 0f), CompassDirection.None),
-            
+
             // deadzone data
             () => new VectorToDirectionTestData(new Vector2(0.2f, 0), CompassDirection.None, 0.3f),
             () => new VectorToDirectionTestData(new Vector2(0.4f, 0), CompassDirection.East, 0.3f),
             () => new VectorToDirectionTestData(new Vector2(0.4f, 0.2f), CompassDirection.East, 0.3f),
             () => new VectorToDirectionTestData(new Vector2(0.2f, 0.4f), CompassDirection.South, 0.3f),
+            
+            // specific data
+            () => new VectorToDirectionTestData(new Vector2(0.7f, 0.7f), CompassDirection.Southeast),
         ];
 }
