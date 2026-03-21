@@ -12,11 +12,9 @@ hide empty description
 
 state idle
 state selecting
-state selected
 
 [*] --> idle
-idle --> selecting : right joystick
-selecting --> selected : release
-selected --> idle
+idle --> selecting : right joystick leave deadzone
+selecting --> idle : right joystick back to deadzone
 
 @enduml
