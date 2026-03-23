@@ -5,11 +5,16 @@ hide empty description
 
 state idle
 state dragging
+state selected
 
-[*] -> idle
+[*] --> idle
 
-idle --> dragging : left mouse pressed in area
+idle --> selected : mouse click on area
 
-dragging --> idle : left mouse released
+selected --> dragging : mouse move
+
+selected --> idle : mouse release
+
+dragging --> idle : mouse release
 
 @enduml
