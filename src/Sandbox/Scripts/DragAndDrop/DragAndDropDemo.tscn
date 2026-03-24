@@ -16,6 +16,9 @@ size = Vector2(32, 32)
 [node name="DragAndDropDemo" type="Node2D" unique_id=289254226]
 script = ExtResource("1_yocae")
 
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1245636957]
+zoom = Vector2(8.195, 8.195)
+
 [node name="DragTarget" type="Sprite2D" parent="." unique_id=915400561]
 unique_name_in_owner = true
 texture = SubResource("GradientTexture2D_d8p7f")
