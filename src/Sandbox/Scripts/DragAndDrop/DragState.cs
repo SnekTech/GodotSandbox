@@ -12,7 +12,7 @@ abstract class DragState(DragStateMachine stateMachine) : IState
 
     public virtual Task OnExitAsync(CancellationToken ct) => Task.CompletedTask;
 
-    internal virtual Task HandleMouseInputAsync(InputEventMouse inputEventMouse, CancellationToken ct = default) =>
+    internal virtual Task HandleDragInputAsync(DragInput dragInput, CancellationToken ct = default) =>
         Task.CompletedTask;
 
     protected Task ChangeStateAsync(DragState newState, CancellationToken ct = default) =>
@@ -27,16 +27,11 @@ sealed class Idle(DragStateMachine stateMachine) : DragState(stateMachine)
         return base.OnEnterAsync(ct);
     }
 
-    internal override async Task HandleMouseInputAsync(InputEventMouse inputEventMouse, CancellationToken ct = default)
+    internal override async Task HandleDragInputAsync(DragInput dragInput, CancellationToken ct = default)
     {
-        if (inputEventMouse is InputEventMouseButton
-            {
-                ButtonIndex: MouseButton.Left, Pressed: true,
-            })
+        if (dragInput is DragStart dragStart)
         {
-            var clickPosition = Context.Target.GetViewport().GetCamera2D().GetGlobalMousePosition();
-
-            var clickInArea = Context.Area.ContainsPoint(clickPosition);
+            var clickInArea = Context.Area.ContainsPoint(dragStart.StartGlobalPosition);
             if (clickInArea)
             {
                 await ChangeStateAsync(new Selected(StateMachine), ct);
@@ -53,29 +48,32 @@ sealed class Selected(DragStateMachine stateMachine) : DragState(stateMachine)
         return Task.CompletedTask;
     }
 
-    internal override async Task HandleMouseInputAsync(InputEventMouse inputEventMouse, CancellationToken ct = default)
+    internal override async Task HandleDragInputAsync(DragInput dragInput, CancellationToken ct = default)
     {
-        if (inputEventMouse is InputEventMouseMotion)
+        if (dragInput is DragMove)
         {
             await ChangeStateAsync(new Dragging(StateMachine), ct);
-            await StateMachine.HandleInputAsync(inputEventMouse, ct);
+            await StateMachine.HandleInputAsync(dragInput, ct);
         }
     }
 }
 
 sealed class Dragging(DragStateMachine stateMachine) : DragState(stateMachine)
 {
-    internal override async Task HandleMouseInputAsync(InputEventMouse inputEventMouse, CancellationToken ct = default)
+    internal override Task HandleDragInputAsync(DragInput dragInput, CancellationToken ct = default)
     {
-        if (inputEventMouse is InputEventMouseMotion)
+        return dragInput switch
         {
-            var mouseGlobalPosition = Context.Target.GetViewport().GetCamera2D().GetGlobalMousePosition();
-            var newGlobalPosition = Context.Target.GlobalPosition.Lerp(mouseGlobalPosition, 0.5f);
+            DragMove dragMove => HandleMove(dragMove),
+            DragRelease => ChangeStateAsync(new Idle(StateMachine), ct),
+            _ => Task.CompletedTask,
+        };
+
+        Task HandleMove(DragMove dragMove)
+        {
+            var newGlobalPosition = Context.Target.GlobalPosition.Lerp(dragMove.NextGlobalPosition, 0.5f);
             Context.Target.GlobalPosition = newGlobalPosition;
-        }
-        else if (inputEventMouse is InputEventMouseButton { Pressed: false })
-        {
-            await ChangeStateAsync(new Idle(StateMachine), ct);
+            return Task.CompletedTask;
         }
     }
 }

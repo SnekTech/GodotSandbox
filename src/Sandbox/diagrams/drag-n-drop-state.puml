@@ -9,12 +9,12 @@ state selected
 
 [*] --> idle
 
-idle --> selected : mouse click on area
+idle --> selected : drag start
 
-selected --> dragging : mouse move
+selected --> dragging : drag move
 
-selected --> idle : mouse release
+selected --> idle : drag release
 
-dragging --> idle : mouse release
+dragging --> idle : drag release
 
 @enduml

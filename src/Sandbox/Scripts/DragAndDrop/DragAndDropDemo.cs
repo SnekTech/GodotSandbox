@@ -17,6 +17,7 @@ public partial class DragAndDropDemo : Node2D
 
     public override void _Input(InputEvent inputEvent)
     {
-        _stateMachine.HandleInputAsync(inputEvent, this.GetCancellationTokenOnTreeExit()).Fire();
+        _stateMachine.HandleInputAsync(DragInput.FromInputEvent(inputEvent, GetGlobalMousePosition),
+            this.GetCancellationTokenOnTreeExit()).Fire();
     }
 }
