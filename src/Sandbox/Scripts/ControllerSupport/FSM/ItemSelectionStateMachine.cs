@@ -22,4 +22,6 @@ class ItemSelectionStateMachine : StateMachineV2<ItemSelectionState>
 
     internal Task HandleInputAsync(InputEvent inputEvent, CancellationToken ct = default) =>
         CurrentState?.HandleInputAsync(inputEvent, ct) ?? Task.CompletedTask;
+
+    internal Task InitAsync(CancellationToken ct = default) => SetInitStateAsync(new ItemSelectionIdle(this), ct);
 }

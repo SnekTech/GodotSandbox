@@ -15,8 +15,7 @@ public partial class ControllerSupportDemo : Node2D
     public override void _Ready()
     {
         vectorInput = new Uniform<Vector2>(JoyStickInputIndicator.GetMaterialAs<ShaderMaterial>(), "u_vector_input");
-        _itemSelectionStateMachine.SetInitStateAsync(new ItemSelectionIdle(_itemSelectionStateMachine),
-            this.GetCancellationTokenOnTreeExit()).Fire();
+        _itemSelectionStateMachine.InitAsync(this.GetCancellationTokenOnTreeExit()).Fire();
     }
 
     public override void _Input(InputEvent @event)
