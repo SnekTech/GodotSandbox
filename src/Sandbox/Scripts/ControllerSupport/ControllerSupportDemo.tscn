@@ -1,25 +1,7 @@
 [gd_scene format=3 uid="uid://cgfuob3wubnh2"]
 
 [ext_resource type="Script" uid="uid://ceubinaxppwyw" path="res://Scripts/ControllerSupport/ControllerSupportDemo.cs" id="1_dyp0u"]
-[ext_resource type="Shader" uid="uid://fth0eqpblu8v" path="res://Scripts/ControllerSupport/vector_indicator.gdshader" id="2_l5mk1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b5kae"]
-shader = ExtResource("2_l5mk1")
-shader_parameter/u_vector_input = Vector2(0.275, -0.21)
-shader_parameter/u_line_width = 0.1430000067925
-shader_parameter/u_line_color = Color(1, 0.945098, 0.909804, 1)
-shader_parameter/u_end_circle_radius = 0.14000000665
-shader_parameter/u_end_circle_color = Color(1, 0, 0.301961, 1)
-shader_parameter/u_circle_frame_thickness = 0.1410000066975
-shader_parameter/u_threshold1 = 0.7
-shader_parameter/u_circle_frame_color = Color(0.760784, 0.764706, 0.780392, 1)
-
-[sub_resource type="Gradient" id="Gradient_jbexf"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_dyp0u"]
-gradient = SubResource("Gradient_jbexf")
+[ext_resource type="PackedScene" uid="uid://cxwhfkpdykcxi" path="res://Scripts/ControllerSupport/UnitVectorIndicator.tscn" id="2_l5mk1"]
 
 [node name="ControllerSupportDemo" type="Node2D" unique_id=2033693302]
 script = ExtResource("1_dyp0u")
@@ -32,8 +14,5 @@ limit_top = 0
 limit_right = 1920
 limit_bottom = 1080
 
-[node name="JoyStickInputIndicator" type="Sprite2D" parent="." unique_id=1955956205]
+[node name="UnitVectorIndicator" parent="." unique_id=1120469614 instance=ExtResource("2_l5mk1")]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_b5kae")
-texture = SubResource("GradientTexture2D_dyp0u")
-centered = false

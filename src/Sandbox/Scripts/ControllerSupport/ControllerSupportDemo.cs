@@ -1,5 +1,3 @@
-using GodotGadgets.Extensions;
-using GodotGadgets.ShaderStuff;
 using GodotGadgets.Tasks;
 using Sandbox.ControllerSupport.FSM;
 
@@ -8,13 +6,10 @@ namespace Sandbox.ControllerSupport;
 [SceneTree]
 public partial class ControllerSupportDemo : Node2D
 {
-    Uniform<Vector2> vectorInput = null!;
-
     readonly ItemSelectionStateMachine _itemSelectionStateMachine = new();
 
     public override void _Ready()
     {
-        vectorInput = new Uniform<Vector2>(JoyStickInputIndicator.GetMaterialAs<ShaderMaterial>(), "u_vector_input");
         _itemSelectionStateMachine.InitAsync(this.GetCancellationTokenOnTreeExit()).Fire();
     }
 
@@ -23,7 +18,7 @@ public partial class ControllerSupportDemo : Node2D
         _itemSelectionStateMachine.HandleInputAsync(DirectionSelectInput.FromInputEvent(inputEvent),
             this.GetCancellationTokenOnTreeExit()).Fire();
 
-        vectorInput.Value = inputEvent switch
+        _.UnitVectorIndicator.VectorToDisplay = inputEvent switch
         {
             InputEventMouse inputEventMouse => GetVectorInputFromMouse(inputEventMouse),
             InputEventJoypadMotion joypadMotion => joypadMotion.GetRightJoystickValue(),
@@ -44,8 +39,8 @@ public partial class ControllerSupportDemo : Node2D
     {
         var (relativeX, relativeY) = GetGlobalMousePosition() - sprite.GlobalPosition;
         var (width, height) = GetSpriteSize(sprite);
-        var normalizedX = (relativeX / width).Clamp01() * 2f - 1f;
-        var normalizedY = (relativeY / height).Clamp01() * 2f - 1f;
+        var normalizedX = float.Clamp(relativeX / width, -1, 1);
+        var normalizedY = float.Clamp(relativeY / height, -1, 1);
 
         return new Vector2(normalizedX, normalizedY);
 
