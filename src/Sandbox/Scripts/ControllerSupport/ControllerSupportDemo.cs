@@ -18,22 +18,27 @@ public partial class ControllerSupportDemo : Node2D
         _itemSelectionStateMachine.InitAsync(this.GetCancellationTokenOnTreeExit()).Fire();
     }
 
-    public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent inputEvent)
     {
-        _itemSelectionStateMachine.HandleInputAsync(@event, this.GetCancellationTokenOnTreeExit()).Fire();
+        _itemSelectionStateMachine.HandleInputAsync(DirectionSelectInput.FromInputEvent(inputEvent),
+            this.GetCancellationTokenOnTreeExit()).Fire();
 
-        if (@event is InputEventMouseMotion)
+        vectorInput.Value = inputEvent switch
         {
-            var mousePositionNormalized = GetMousePositionInTexture(JoyStickInputIndicator);
-            vectorInput.Value = mousePositionNormalized;
-        }
-        else if (@event is InputEventJoypadMotion joypadMotion)
+            InputEventMouse inputEventMouse => GetVectorInputFromMouse(inputEventMouse),
+            InputEventJoypadMotion joypadMotion => joypadMotion.GetRightJoystickValue(),
+            _ => Vector2.Zero,
+        };
+        return;
+
+        Vector2 GetVectorInputFromMouse(InputEventMouse inputEventMouse)
         {
-            vectorInput.Value = joypadMotion.GetRightJoystickValue();
+            var viewportCenter = GetViewportRect().Size / 2;
+            var mouseVectorRaw = inputEventMouse.GlobalPosition - viewportCenter;
+            var alpha = mouseVectorRaw.Length() / viewportCenter.Y;
+            return Vector2.Zero.Lerp(mouseVectorRaw.Normalized(), alpha);
         }
     }
-
-    static Vector2 GetSpriteSize(Sprite2D sprite2D) => sprite2D.Texture.GetSize() * sprite2D.Scale;
 
     Vector2 GetMousePositionInTexture(Sprite2D sprite)
     {
@@ -43,5 +48,7 @@ public partial class ControllerSupportDemo : Node2D
         var normalizedY = (relativeY / height).Clamp01() * 2f - 1f;
 
         return new Vector2(normalizedX, normalizedY);
+
+        static Vector2 GetSpriteSize(Sprite2D sprite2D) => sprite2D.Texture.GetSize() * sprite2D.Scale;
     }
 }

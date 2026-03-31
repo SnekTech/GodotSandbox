@@ -6,12 +6,6 @@ sealed class ItemSelectionSelecting(ItemSelectionStateMachine stateMachine) : It
 {
     CompassDirection _selectedDirection = CompassDirection.None;
 
-    public override Task OnEnterAsync(CancellationToken ct)
-    {
-        // todo: show the selection items in 8 directions
-        return Task.CompletedTask;
-    }
-
     public override Task OnExitAsync(CancellationToken ct)
     {
         // todo: hide the selection items, send out the selection
@@ -19,19 +13,23 @@ sealed class ItemSelectionSelecting(ItemSelectionStateMachine stateMachine) : It
         return Task.CompletedTask;
     }
 
-    internal override async Task HandleInputAsync(InputEvent inputEvent, CancellationToken ct = default)
+    internal override Task HandleInputAsync(DirectionSelectInput input, CancellationToken ct = default)
     {
-        if (inputEvent is InputEventJoypadMotion { IsRightJoystick: true } joypadMotion)
+        return input switch
         {
-            if (!joypadMotion.IsInDeadzone(StateMachine.Threshold))
-            {
-                var rightJoystickValue = joypadMotion.GetRightJoystickValue();
-                _selectedDirection = CompassDirection.FromVector2(rightJoystickValue);
-            }
-            else
-            {
-                await ChangeStateAsync(new ItemSelectionIdle(StateMachine), ct);
-            }
+            Move move when move.AxisValue.IsLongerThan(StateMachine.Threshold) => UpdateDirectionTask(move),
+            Move => HandleMoveBelowThresholdTask(),
+            Cancel => ChangeStateAsync(new ItemSelectionIdle(StateMachine), ct),
+            _ => Task.CompletedTask,
+        };
+
+        Task UpdateDirectionTask(Move move)
+        {
+            $"direction {_selectedDirection} selected".DumpGd();
+            _selectedDirection = CompassDirection.FromVector2(move.AxisValue);
+            return Task.CompletedTask;
         }
+
+        Task HandleMoveBelowThresholdTask() => ChangeStateAsync(new ItemSelectionIdle(StateMachine), ct);
     }
 }

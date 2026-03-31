@@ -12,9 +12,12 @@ hide empty description
 
 state idle
 state selecting
+state "ready to select" as ready
 
 [*] --> idle
-idle --> selecting : right joystick leave deadzone
-selecting --> idle : right joystick back to deadzone
+idle --> ready : device ready pressed
+ready --> idle : device ready released
+ready --> selecting : device input above threshold
+selecting --> idle : device input below threshold \n or device ready released
 
 @enduml

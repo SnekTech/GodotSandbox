@@ -15,6 +15,7 @@ public static class ControllerExtensions
 
     extension(Vector2 vector2)
     {
-        bool IsShorterThan(float targetLength) => vector2.LengthSquared() < targetLength * targetLength;
+        public bool IsShorterThan(float targetLength) => vector2.LengthSquared() < targetLength * targetLength;
+        public bool IsLongerThan(float targetLength) => vector2.LengthSquared() > targetLength * targetLength;
     }
 }
